@@ -5,22 +5,31 @@
  */
 package br.gov.sp.fatec.View;
 
+import br.gov.sp.fatec.ServicosTecnicos.BancoFactory;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JMenu;
 
 /**
  *
  * @author Thiago
  */
 public class MainView extends javax.swing.JFrame {
+    private boolean stateMenus = false;
+    private String usuarioLogado = "";
     /**
      * Creates new form MainView
      */
     public MainView() {
         initComponents();
+        BancoFactory.abreBanco();
+        BancoFactory.fechaBanco();
         setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
     }
 
@@ -49,9 +58,15 @@ public class MainView extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCadastro = new javax.swing.JMenu();
         menuProdutos = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        menuTeste = new javax.swing.JMenu();
+        test1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         javax.swing.GroupLayout mainContainerLayout = new javax.swing.GroupLayout(mainContainer);
         mainContainer.setLayout(mainContainerLayout);
@@ -76,13 +91,17 @@ public class MainView extends javax.swing.JFrame {
 
         jMenuBar1.add(menuCadastro);
 
-        jMenu1.setText("Teste");
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
+        menuTeste.setText("Teste");
+
+        test1.setText("TesteProdutos");
+        test1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                test1ActionPerformed(evt);
             }
         });
-        jMenuBar1.add(jMenu1);
+        menuTeste.add(test1);
+
+        jMenuBar1.add(menuTeste);
 
         setJMenuBar(jMenuBar1);
 
@@ -106,20 +125,39 @@ public class MainView extends javax.swing.JFrame {
         } catch (Exception e) {
         } finally {
             mainContainer.removeAll();
-            mainContainer.add(new CadastroProdutoView());
+            mainContainer.add(center(new CadastroProdutoView()));
         }  
     }//GEN-LAST:event_menuProdutosActionPerformed
+  
+    public void toggleMenus() {
+        int n = jMenuBar1.getMenuCount();
+        for (int i = 0; i < n; i++) {
+            jMenuBar1.getMenu(i).setEnabled(stateMenus);
+        }
+        stateMenus = !stateMenus;
+    }
+    
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        toggleMenus();
+        mainContainer.add(center(new LoginView(this)));
+    }//GEN-LAST:event_formWindowOpened
 
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+    private JInternalFrame center(JInternalFrame window) {
+        window.setLocation(new Point((mainContainer.getWidth() - window.getWidth())/2, 
+                                (mainContainer.getHeight() - window.getHeight())/2));
+        return window;
+    }
+    
+    private void test1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_test1ActionPerformed
         try {
             mainContainer.getComponent(0).setVisible(false);
         } catch (Exception e) {
         } finally {
             Test.model.clear();
             mainContainer.removeAll();
-            mainContainer.add(new Test());
+            mainContainer.add(center(new Test()));
         }
-    }//GEN-LAST:event_jMenu1MouseClicked
+    }//GEN-LAST:event_test1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,11 +194,20 @@ public class MainView extends javax.swing.JFrame {
         });
     }
 
+    public String getUsuarioLogado() {
+        return usuarioLogado;
+    }
+
+    public void setUsuarioLogado(String usuarioLogado) {
+        this.usuarioLogado = usuarioLogado;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JDesktopPane mainContainer;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenuItem menuProdutos;
+    private javax.swing.JMenu menuTeste;
+    private javax.swing.JMenuItem test1;
     // End of variables declaration//GEN-END:variables
 }
