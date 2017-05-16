@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,7 +22,6 @@ import javax.swing.JOptionPane;
 public class ProdutoDAO implements DAO<Produto> {
     private ResultSet rs;
     private PreparedStatement pst;
-    private Statement stm;
     
     @Override
     public boolean adicionar(Produto item) throws SQLException {
