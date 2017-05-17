@@ -6,7 +6,7 @@
 package br.gov.sp.fatec.View;
 
 import br.gov.sp.fatec.ServicosTecnicos.BancoFactory;
-import java.awt.Component;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -14,7 +14,6 @@ import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import javax.swing.JMenu;
 
 /**
  *

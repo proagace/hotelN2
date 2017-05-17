@@ -27,6 +27,13 @@ public class Produto {
         this.imagem = imagem;
     }
 
+    public Produto(String descricao, float valor, TipoProdutoEnum tipo, String imagem) {
+        this.descricao = descricao;
+        this.valor = valor;
+        this.tipo = tipo;
+        this.imagem = imagem;
+    }
+    
     public Produto() {}
 
     @Override

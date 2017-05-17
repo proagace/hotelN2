@@ -6,20 +6,19 @@
 package br.gov.sp.fatec.View;
 
 import br.gov.sp.fatec.Control.ProdutoControl;
+import br.gov.sp.fatec.Model.Produto;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
-import java.awt.Color;
+import br.gov.sp.fatec.ServicosTecnicos.TipoProdutoEnum;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import static java.nio.file.StandardCopyOption.*;
-import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 /**
@@ -27,12 +26,13 @@ import javax.swing.JTextField;
  * @author Thiago
  */
 public class CadastroProdutoView extends javax.swing.JInternalFrame {
-
+    private DefaultComboBoxModel<TipoProdutoEnum> modelo;
     /**
      * Creates new form NewJInternalFrame
      */
     public CadastroProdutoView() {
         initComponents();
+        getRootPane().setDefaultButton(btn_enviar);
     }
 
     /**
@@ -165,14 +165,25 @@ public class CadastroProdutoView extends javax.swing.JInternalFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
+        lbl_icon.getAccessibleContext().setAccessibleDescription("");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         ProdutoControl controle = new ProdutoControl();
-        controle.preencherTipos(cb_tipo);
+        preencherTipos();
     }//GEN-LAST:event_formInternalFrameActivated
 
+    private void preencherTipos() {
+        modelo = new DefaultComboBoxModel<>();
+        for (TipoProdutoEnum tipo : TipoProdutoEnum.values()) {
+            modelo.addElement(tipo);
+        }
+        cb_tipo.setModel(modelo);
+        cb_tipo.setSelectedIndex(-1);
+    }
+    
     private void btn_enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviarActionPerformed
         for (Object component : getContentPane().getComponents()) {
             if (component instanceof JTextField && ((JTextField)component).getText().length() == 0) {
@@ -184,8 +195,9 @@ public class CadastroProdutoView extends javax.swing.JInternalFrame {
             }
         }
         ProdutoControl temp = new ProdutoControl();
-        if (temp.inserir(txt_desc.getText(), Float.parseFloat(txt_valor.getText().replace(",", ".")), cb_tipo.getSelectedItem().toString(), lbl_icon.getText()));
-            temp.limpar(this);
+        if (temp.inserir(new Produto(txt_desc.getText(), Float.parseFloat(txt_valor.getText().replace(",", ".")), 
+                            TipoProdutoEnum.valueOf(cb_tipo.getSelectedItem().toString()), lbl_icon.getText())));
+            limparCampos();
     }//GEN-LAST:event_btn_enviarActionPerformed
 
     private void lbl_iconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_iconMouseClicked
@@ -207,11 +219,22 @@ public class CadastroProdutoView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_lbl_iconMouseClicked
 
+    private void limparCampos() {
+        for (Object component : getContentPane().getComponents()) {
+            if (component instanceof JTextField)
+                ((JTextField)component).setText("");
+            else if (component instanceof JComboBox)
+                ((JComboBox)component).setSelectedIndex(-1);
+            
+            lbl_icon.setIcon(null);
+            lbl_icon.setText("");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_enviar;
     private javax.swing.JButton btn_limpar;
-    private javax.swing.JComboBox<String> cb_tipo;
+    private javax.swing.JComboBox<TipoProdutoEnum> cb_tipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

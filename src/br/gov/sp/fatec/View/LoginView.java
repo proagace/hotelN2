@@ -10,9 +10,6 @@ import br.gov.sp.fatec.Model.Usuario;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.beans.PropertyVetoException;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -26,6 +23,7 @@ public class LoginView extends javax.swing.JInternalFrame {
      */
     public LoginView(MainView main) {
         initComponents();
+        getRootPane().setDefaultButton(btnLogar);
         this.main = main;
     }
 
@@ -44,13 +42,16 @@ public class LoginView extends javax.swing.JInternalFrame {
         btnLogar = new javax.swing.JButton();
         txtSenha = new javax.swing.JPasswordField();
 
+        setTitle("Login");
         setVisible(true);
 
         jLabel1.setText("Usuário:");
 
         jLabel2.setText("Senha:");
 
+        btnLogar.setMnemonic('L');
         btnLogar.setText("Logar");
+        btnLogar.setToolTipText("");
         btnLogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogarActionPerformed(evt);
