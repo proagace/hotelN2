@@ -6,11 +6,15 @@
 package br.gov.sp.fatec.View;
 
 import br.gov.sp.fatec.ServicosTecnicos.BancoFactory;
+import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
+import java.beans.PropertyVetoException;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -59,6 +63,7 @@ public class MainView extends javax.swing.JFrame {
         menuProdutos = new javax.swing.JMenuItem();
         menuTeste = new javax.swing.JMenu();
         test1 = new javax.swing.JMenuItem();
+        test2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -100,6 +105,14 @@ public class MainView extends javax.swing.JFrame {
         });
         menuTeste.add(test1);
 
+        test2.setText("TesteTable");
+        test2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                test2ActionPerformed(evt);
+            }
+        });
+        menuTeste.add(test2);
+
         jMenuBar1.add(menuTeste);
 
         setJMenuBar(jMenuBar1);
@@ -124,7 +137,7 @@ public class MainView extends javax.swing.JFrame {
         } catch (Exception e) {
         } finally {
             mainContainer.removeAll();
-            mainContainer.add(center(new CadastroProdutoView()));
+            abreForm(new CadastroProdutoView());
         }  
     }//GEN-LAST:event_menuProdutosActionPerformed
   
@@ -138,15 +151,9 @@ public class MainView extends javax.swing.JFrame {
     
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         toggleMenus();
-        mainContainer.add(center(new LoginView(this)));
+        abreForm(new LoginView(this));
     }//GEN-LAST:event_formWindowOpened
-
-    private JInternalFrame center(JInternalFrame window) {
-        window.setLocation(new Point((mainContainer.getWidth() - window.getWidth())/2, 
-                                (mainContainer.getHeight() - window.getHeight())/2));
-        return window;
-    }
-    
+   
     private void test1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_test1ActionPerformed
         try {
             mainContainer.getComponent(0).setVisible(false);
@@ -154,9 +161,13 @@ public class MainView extends javax.swing.JFrame {
         } finally {
             Test.model.clear();
             mainContainer.removeAll();
-            mainContainer.add(center(new Test()));
+            abreForm(new Test());
         }
     }//GEN-LAST:event_test1ActionPerformed
+
+    private void test2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_test2ActionPerformed
+        abreForm(new TestTable());
+    }//GEN-LAST:event_test2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,12 +212,24 @@ public class MainView extends javax.swing.JFrame {
         this.usuarioLogado = usuarioLogado;
     }
 
+    public static void abreForm (JInternalFrame window) {
+        window.setLocation(new Point((mainContainer.getWidth() - window.getWidth())/2, 
+                                (mainContainer.getHeight() - window.getHeight())/2));
+        mainContainer.add(window);
+        try {
+            window.setSelected(true);
+        } catch (PropertyVetoException ex) {
+            Messages.showError("Erro ao adquirir foco: " + ex.getMessage());
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JDesktopPane mainContainer;
+    private static javax.swing.JDesktopPane mainContainer;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenuItem menuProdutos;
     private javax.swing.JMenu menuTeste;
     private javax.swing.JMenuItem test1;
+    private javax.swing.JMenuItem test2;
     // End of variables declaration//GEN-END:variables
 }

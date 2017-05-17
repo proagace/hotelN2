@@ -32,6 +32,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="test1ActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="test2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="TesteTable"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="test2ActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>
@@ -75,7 +83,8 @@
   <SubComponents>
     <Container class="javax.swing.JDesktopPane" name="mainContainer">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JDesktopPane(){&#xa;    ImageIcon icon = new ImageIcon(System.getProperty(&quot;user.dir&quot;) + File.separator + &#xa;                                   &quot;images&quot; + File.separator + &quot;background.jpg&quot;);&#xa;    Image newimage = icon.getImage();&#xa;    //resize&#xa;    //Image newimage = image.getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);&#xa;    @Override&#xa;    protected void paintComponent(Graphics g)&#xa;    {&#xa;        super.paintComponent(g);&#xa;        g.drawImage(newimage, 0, 0, this);&#xa;    }&#xa;}"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JDesktopPane(){&#xa;    ImageIcon icon = new ImageIcon(System.getProperty(&quot;user.dir&quot;) + File.separator +&#xa;        &quot;images&quot; + File.separator + &quot;background.jpg&quot;);&#xa;    Image newimage = icon.getImage();&#xa;    //resize&#xa;    //Image newimage = image.getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);&#xa;    @Override&#xa;    protected void paintComponent(Graphics g)&#xa;    {&#xa;        super.paintComponent(g);&#xa;        g.drawImage(newimage, 0, 0, this);&#xa;    }&#xa;}"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
       </AuxValues>
 
       <Layout>
