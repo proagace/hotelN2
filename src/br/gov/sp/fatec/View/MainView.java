@@ -61,9 +61,12 @@ public class MainView extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCadastro = new javax.swing.JMenu();
         menuProdutos = new javax.swing.JMenuItem();
+        menuHospedes = new javax.swing.JMenuItem();
         menuTeste = new javax.swing.JMenu();
         test1 = new javax.swing.JMenuItem();
         test2 = new javax.swing.JMenuItem();
+        menuDiarias = new javax.swing.JMenu();
+        pagamento = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -93,6 +96,14 @@ public class MainView extends javax.swing.JFrame {
         });
         menuCadastro.add(menuProdutos);
 
+        menuHospedes.setText("Hóspedes");
+        menuHospedes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuHospedesActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(menuHospedes);
+
         jMenuBar1.add(menuCadastro);
 
         menuTeste.setText("Teste");
@@ -114,6 +125,18 @@ public class MainView extends javax.swing.JFrame {
         menuTeste.add(test2);
 
         jMenuBar1.add(menuTeste);
+
+        menuDiarias.setText("Diárias");
+
+        pagamento.setText("Pagamento");
+        pagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pagamentoActionPerformed(evt);
+            }
+        });
+        menuDiarias.add(pagamento);
+
+        jMenuBar1.add(menuDiarias);
 
         setJMenuBar(jMenuBar1);
 
@@ -168,6 +191,14 @@ public class MainView extends javax.swing.JFrame {
     private void test2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_test2ActionPerformed
         abreForm(new TestTable());
     }//GEN-LAST:event_test2ActionPerformed
+
+    private void pagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagamentoActionPerformed
+        abreForm(new PagamentoView());
+    }//GEN-LAST:event_pagamentoActionPerformed
+
+    private void menuHospedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHospedesActionPerformed
+        abreForm(new CadastroHospedeView());
+    }//GEN-LAST:event_menuHospedesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,8 +258,11 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private static javax.swing.JDesktopPane mainContainer;
     private javax.swing.JMenu menuCadastro;
+    private javax.swing.JMenu menuDiarias;
+    private javax.swing.JMenuItem menuHospedes;
     private javax.swing.JMenuItem menuProdutos;
     private javax.swing.JMenu menuTeste;
+    private javax.swing.JMenuItem pagamento;
     private javax.swing.JMenuItem test1;
     private javax.swing.JMenuItem test2;
     // End of variables declaration//GEN-END:variables
