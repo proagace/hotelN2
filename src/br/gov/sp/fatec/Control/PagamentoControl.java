@@ -6,6 +6,7 @@
 package br.gov.sp.fatec.Control;
 
 import br.gov.sp.fatec.Model.Diaria;
+import br.gov.sp.fatec.Model.Hospede;
 import br.gov.sp.fatec.Model.Locacao;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.sql.SQLException;
@@ -16,12 +17,18 @@ import java.util.List;
  * @author Thiago
  */
 public class PagamentoControl {
-    public List<Diaria> listar(int idHospede) {
+    public List<Diaria> listar(String cpf) {
         DiariasDAO daod = new DiariasDAO();
         LocacaoDAO daol = new LocacaoDAO();
+        HospedeDAO daoh = new HospedeDAO();
         Locacao temp;
         try {
-            temp = daol.buscar(new Locacao(idHospede));
+            Hospede aux = daoh.buscar(new Hospede(cpf));
+            if (aux == null) {
+                Messages.showError("Hóspede não encontrado");
+                return null;
+            }
+            temp = daol.buscar(new Locacao(aux.getIdHospede()));
             if (temp != null)
                 return daod.listar("where idLocacao = " + temp.getId());
         } catch (SQLException ex) {

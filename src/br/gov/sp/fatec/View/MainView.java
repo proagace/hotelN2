@@ -26,6 +26,7 @@ import javax.swing.JInternalFrame;
 public class MainView extends javax.swing.JFrame {
     private boolean stateMenus = false;
     private String usuarioLogado = "";
+    public static final boolean debug = true;
     /**
      * Creates new form MainView
      */
@@ -53,7 +54,7 @@ public class MainView extends javax.swing.JFrame {
             protected void paintComponent(Graphics g)
             {
                 super.paintComponent(g);
-                g.drawImage(newimage, 0, 0, this);
+                g.drawImage(newimage, 0, 0, this.getWidth(), this.getHeight(), this);
             }
         };
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -173,6 +174,8 @@ public class MainView extends javax.swing.JFrame {
     }
     
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        if (debug)
+            return;
         toggleMenus();
         abreForm(new LoginView(this));
     }//GEN-LAST:event_formWindowOpened

@@ -33,16 +33,33 @@ public class PagamentoView extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtCpf = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbConsulta = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        txtCpf = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("Pagamentos");
         setVisible(true);
+
+        try {
+            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtCpf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCpf.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+        txtCpf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCpfMouseClicked(evt);
+            }
+        });
+        txtCpf.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txtCpfPropertyChange(evt);
+            }
+        });
 
         tbConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -78,13 +95,6 @@ public class PagamentoView extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Cpf do Hóspede: ");
 
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,13 +102,12 @@ public class PagamentoView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -107,23 +116,24 @@ public class PagamentoView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        if (txtCpf.getText().length() == 0) {
-            Messages.showInformation("Preencha o campo Cpf para realizar busca!");
+    private void txtCpfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCpfMouseClicked
+        txtCpf.setText(null);
+    }//GEN-LAST:event_txtCpfMouseClicked
+
+    private void txtCpfPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtCpfPropertyChange
+        if (txtCpf.getText().contains(" "))
             return;
-        }
         preencherTable();
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    }//GEN-LAST:event_txtCpfPropertyChange
 
     private void preencherTable() {
         DefaultTableModel model;
@@ -131,7 +141,12 @@ public class PagamentoView extends javax.swing.JInternalFrame {
         PagamentoControl control = new PagamentoControl();
         Vector col;
         model.getDataVector().clear();
-        for (Diaria diaria : control.listar(Integer.parseInt(txtCpf.getText()))) {
+        java.util.List<Diaria> locacoes = control.listar(txtCpf.getText());
+        if (locacoes == null) {
+            txtCpf.setText(null);
+            return;
+        }
+        for (Diaria diaria : locacoes) {
             col = new Vector();
             col.add(diaria.getCod());
             col.add(diaria.getIdLocacao());
@@ -142,10 +157,9 @@ public class PagamentoView extends javax.swing.JInternalFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbConsulta;
-    private javax.swing.JTextField txtCpf;
+    private javax.swing.JFormattedTextField txtCpf;
     // End of variables declaration//GEN-END:variables
 }

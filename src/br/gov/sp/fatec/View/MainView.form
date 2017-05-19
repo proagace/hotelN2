@@ -122,7 +122,7 @@
   <SubComponents>
     <Container class="javax.swing.JDesktopPane" name="mainContainer">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JDesktopPane(){&#xa;    ImageIcon icon = new ImageIcon(System.getProperty(&quot;user.dir&quot;) + File.separator +&#xa;        &quot;images&quot; + File.separator + &quot;background.jpg&quot;);&#xa;    Image newimage = icon.getImage();&#xa;    //resize&#xa;    //Image newimage = image.getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);&#xa;    @Override&#xa;    protected void paintComponent(Graphics g)&#xa;    {&#xa;        super.paintComponent(g);&#xa;        g.drawImage(newimage, 0, 0, this);&#xa;    }&#xa;}"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JDesktopPane(){&#xa;    ImageIcon icon = new ImageIcon(System.getProperty(&quot;user.dir&quot;) + File.separator +&#xa;        &quot;images&quot; + File.separator + &quot;background.jpg&quot;);&#xa;    Image newimage = icon.getImage();&#xa;    //resize&#xa;    //Image newimage = image.getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);&#xa;    @Override&#xa;    protected void paintComponent(Graphics g)&#xa;    {&#xa;        super.paintComponent(g);&#xa;        g.drawImage(newimage, 0, 0, this.getWidth(), this.getHeight(), this);&#xa;    }&#xa;}"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
       </AuxValues>
 
