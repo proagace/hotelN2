@@ -46,6 +46,7 @@ public class DatePick extends javax.swing.JInternalFrame {
         btnOk = new javax.swing.JButton();
 
         setClosable(true);
+        setTitle("Selecione uma data");
         setVisible(true);
 
         jCalendar1.setDoubleBuffered(false);

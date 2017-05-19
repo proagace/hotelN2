@@ -41,6 +41,7 @@ public class PagamentoView extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setTitle("Pagamentos");
         setVisible(true);
 
         tbConsulta.setModel(new javax.swing.table.DefaultTableModel(

@@ -25,6 +25,14 @@ public class Hospede {
         this.dataNasc = dataNasc;
     }
 
+    public Hospede(String cpf, String nome, String telefone, String email, Date dataNasc) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
+        this.dataNasc = dataNasc;
+    }
+
     public Hospede(String cpf) {
         this.cpf = cpf;
     }

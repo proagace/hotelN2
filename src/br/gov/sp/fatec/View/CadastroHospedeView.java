@@ -5,8 +5,11 @@
  */
 package br.gov.sp.fatec.View;
 
+import br.gov.sp.fatec.Control.CadastroHospedeControl;
+import br.gov.sp.fatec.Model.Hospede;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import br.gov.sp.fatec.ServicosTecnicos.TipoTelefoneEnum;
+import java.awt.Component;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +20,8 @@ import javax.swing.DefaultComboBoxModel;
  * @author Thiago
  */
 public class CadastroHospedeView extends javax.swing.JInternalFrame {
-    DefaultComboBoxModel<TipoTelefoneEnum> model;
+    private DefaultComboBoxModel<TipoTelefoneEnum> model;
+    private CadastroHospedeControl control = new CadastroHospedeControl();
     /**
      * Creates new form CadastroHospedeView
      */
@@ -43,11 +47,12 @@ public class CadastroHospedeView extends javax.swing.JInternalFrame {
         dcNasc = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         txtCpf = new javax.swing.JFormattedTextField();
-        txtTelefone = new javax.swing.JFormattedTextField();
         cbTipoTel = new javax.swing.JComboBox<>();
+        txtTelefone = new javax.swing.JFormattedTextField();
         btnCadastrar = new javax.swing.JButton();
 
         setClosable(true);
+        setTitle("Cadastro de Hóspedes");
         setVisible(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -80,15 +85,22 @@ public class CadastroHospedeView extends javax.swing.JInternalFrame {
         jLabel5.setText("Data de nascimento: ");
 
         try {
-            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-#")));
+            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         txtCpf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        txtTelefone.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtTelefone.setEnabled(false);
-        txtTelefone.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+        txtCpf.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+        txtCpf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCpfMouseClicked(evt);
+            }
+        });
+        txtCpf.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txtCpfPropertyChange(evt);
+            }
+        });
 
         cbTipoTel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,7 +108,16 @@ public class CadastroHospedeView extends javax.swing.JInternalFrame {
             }
         });
 
+        txtTelefone.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTelefone.setEnabled(false);
+        txtTelefone.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -168,6 +189,7 @@ public class CadastroHospedeView extends javax.swing.JInternalFrame {
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         preencherTipos();
+        toggleState(false);
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void cbTipoTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoTelActionPerformed
@@ -182,8 +204,37 @@ public class CadastroHospedeView extends javax.swing.JInternalFrame {
             } catch (ParseException ex) {
                 Messages.showError("Erro de máscara: " + ex.getMessage());
             }
+            txtTelefone.requestFocus();
         }
     }//GEN-LAST:event_cbTipoTelActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        boolean result = control.adicionar(new Hospede(txtCpf.getText(), txtNome.getText(), txtTelefone.getText(), txtEmail.getText(), dcNasc.getDate()));
+        if (result)
+            Messages.showInformation("Hospede cadastrado!");
+        else
+            Messages.showError("Erro de cadastro");
+        limparForm();
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void txtCpfPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtCpfPropertyChange
+        if (txtCpf.getText().contains(" "))
+            return;
+        Hospede temp = control.buscar(new Hospede(txtCpf.getText()));
+        if (temp != null) {
+            Messages.showError("Ja há um hospede vinculado a este Cpf");
+            txtCpf.setText(null);
+            toggleState(false);
+        } else {
+            toggleState(true);
+            txtNome.requestFocus();
+        }
+    }//GEN-LAST:event_txtCpfPropertyChange
+
+    private void txtCpfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCpfMouseClicked
+        txtCpf.setText(null);
+        toggleState(false);
+    }//GEN-LAST:event_txtCpfMouseClicked
 
     private void preencherTipos() {
         model = new DefaultComboBoxModel<>();
@@ -193,7 +244,33 @@ public class CadastroHospedeView extends javax.swing.JInternalFrame {
         cbTipoTel.setModel(model);
         cbTipoTel.setSelectedIndex(-1);
     }
+    
+    private void toggleState(boolean state) {
+        txtNome.setEnabled(state);
+        txtEmail.setEnabled(state);
+        dcNasc.setEnabled(state);
+        btnCadastrar.setEnabled(state);
+        cbTipoTel.setEnabled(state);
+        txtTelefone.setEnabled(false);
+        if(state)
+            getRootPane().setDefaultButton(btnCadastrar);
+        else
+            getRootPane().setDefaultButton(null);
+    }
 
+    private void limparForm() {
+        for (Component component : getContentPane().getComponents()) {
+            if (component instanceof javax.swing.JTextField)
+                ((javax.swing.JTextField)component).setText(null);
+            else if (component instanceof javax.swing.JComboBox)
+                ((javax.swing.JComboBox)component).setSelectedIndex(-1);
+            else if (component instanceof com.toedter.calendar.JDateChooser)
+                ((com.toedter.calendar.JDateChooser)component).setDate(null);
+        }
+        toggleState(false);
+        txtCpf.requestFocus();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JComboBox<TipoTelefoneEnum> cbTipoTel;

@@ -31,8 +31,6 @@ public class MainView extends javax.swing.JFrame {
      */
     public MainView() {
         initComponents();
-        BancoFactory.abreBanco();
-        BancoFactory.fechaBanco();
         setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
     }
 
@@ -69,6 +67,7 @@ public class MainView extends javax.swing.JFrame {
         pagamento = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Viotel");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -86,8 +85,10 @@ public class MainView extends javax.swing.JFrame {
             .addGap(0, 491, Short.MAX_VALUE)
         );
 
+        menuCadastro.setMnemonic('c');
         menuCadastro.setText("Cadastro");
 
+        menuProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         menuProdutos.setText("Produtos");
         menuProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,6 +97,7 @@ public class MainView extends javax.swing.JFrame {
         });
         menuCadastro.add(menuProdutos);
 
+        menuHospedes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
         menuHospedes.setText("Hóspedes");
         menuHospedes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,8 +108,10 @@ public class MainView extends javax.swing.JFrame {
 
         jMenuBar1.add(menuCadastro);
 
+        menuTeste.setMnemonic('t');
         menuTeste.setText("Teste");
 
+        test1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK));
         test1.setText("TesteProdutos");
         test1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,6 +120,7 @@ public class MainView extends javax.swing.JFrame {
         });
         menuTeste.add(test1);
 
+        test2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.SHIFT_MASK));
         test2.setText("TesteTable");
         test2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,6 +131,7 @@ public class MainView extends javax.swing.JFrame {
 
         jMenuBar1.add(menuTeste);
 
+        menuDiarias.setMnemonic('d');
         menuDiarias.setText("Diárias");
 
         pagamento.setText("Pagamento");
@@ -155,13 +161,7 @@ public class MainView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuProdutosActionPerformed
-        try {
-            mainContainer.getComponent(0).setVisible(false);
-        } catch (Exception e) {
-        } finally {
-            mainContainer.removeAll();
-            abreForm(new CadastroProdutoView());
-        }  
+        abreForm(new CadastroProdutoView());
     }//GEN-LAST:event_menuProdutosActionPerformed
   
     public void toggleMenus() {
@@ -178,14 +178,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
    
     private void test1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_test1ActionPerformed
-        try {
-            mainContainer.getComponent(0).setVisible(false);
-        } catch (Exception e) {
-        } finally {
-            Test.model.clear();
-            mainContainer.removeAll();
-            abreForm(new Test());
-        }
+        abreForm(new Test());
     }//GEN-LAST:event_test1ActionPerformed
 
     private void test2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_test2ActionPerformed
@@ -244,6 +237,10 @@ public class MainView extends javax.swing.JFrame {
     }
 
     public static void abreForm (JInternalFrame window) {
+        if (mainContainer.getComponentCount() > 0 && !(window instanceof DatePick)) {
+            mainContainer.getComponent(0).setVisible(false);
+            mainContainer.removeAll();
+        }
         window.setLocation(new Point((mainContainer.getWidth() - window.getWidth())/2, 
                                 (mainContainer.getHeight() - window.getHeight())/2));
         mainContainer.add(window);

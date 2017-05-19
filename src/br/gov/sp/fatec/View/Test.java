@@ -25,21 +25,6 @@ public class Test extends javax.swing.JInternalFrame {
      */
     public Test() {
         initComponents();
-        list_pedidos.setModel(model);
-        ProdutoDAO canal = new ProdutoDAO();
-        List<Produto> produtos = new ArrayList<>();
-        int offset = 10;
-        try {
-            produtos = canal.listar("");
-        } catch (SQLException ex) {
-            Messages.showError("Erro ao listar produtos: " + ex.getMessage());
-        }
-        for (Produto produto : produtos) {
-            pannelProdutos.add(new ItemMenu(produto, new Point(offset, 20)), new org.netbeans.lib.awtextra.AbsoluteConstraints(offset, 20, -1, -1));
-            offset += 80;
-        }
-        pannelProdutos.setComponentZOrder(jScrollPane1, pannelProdutos.getComponentCount() -1);
-        pack();
     }
     
     /**
@@ -58,7 +43,25 @@ public class Test extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
+        setTitle("Consumo");
         setVisible(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         pannelProdutos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -79,6 +82,24 @@ public class Test extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        model.clear();
+        ProdutoDAO canal = new ProdutoDAO();
+        List<Produto> produtos = new ArrayList<>();
+        int offset = 10;
+        try {
+            produtos = canal.listar("");
+        } catch (SQLException ex) {
+            Messages.showError("Erro ao listar produtos: " + ex.getMessage());
+        }
+        for (Produto produto : produtos) {
+            pannelProdutos.add(new ItemMenu(produto, new Point(offset, 20)), new org.netbeans.lib.awtextra.AbsoluteConstraints(offset, 20, -1, -1));
+            offset += 80;
+        }
+        pannelProdutos.setComponentZOrder(jScrollPane1, pannelProdutos.getComponentCount() -1);
+        list_pedidos.setModel(model);
+    }//GEN-LAST:event_formInternalFrameActivated
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
