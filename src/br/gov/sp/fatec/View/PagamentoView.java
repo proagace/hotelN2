@@ -6,7 +6,7 @@
 package br.gov.sp.fatec.View;
 
 import br.gov.sp.fatec.Control.PagamentoControl;
-import br.gov.sp.fatec.Model.Diaria;
+import br.gov.sp.fatec.Model.Diarias;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -16,7 +16,6 @@ import javax.swing.table.DefaultTableModel;
  * @author Thiago
  */
 public class PagamentoView extends javax.swing.JInternalFrame {
-
     /**
      * Creates new form PagamentoView
      */
@@ -37,9 +36,9 @@ public class PagamentoView extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbConsulta = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setClosable(true);
-        setIconifiable(true);
         setTitle("Pagamentos");
         setVisible(true);
 
@@ -66,14 +65,14 @@ public class PagamentoView extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cod", "Id Locação", "Data", "Valor R$"
+                "Cod Locação", "Ultima atualização", "Total R$"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.util.Date.class, java.lang.Float.class
+                java.lang.Integer.class, java.util.Date.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -86,14 +85,10 @@ public class PagamentoView extends javax.swing.JInternalFrame {
         });
         tbConsulta.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbConsulta);
-        if (tbConsulta.getColumnModel().getColumnCount() > 0) {
-            tbConsulta.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tbConsulta.getColumnModel().getColumn(1).setPreferredWidth(10);
-            tbConsulta.getColumnModel().getColumn(2).setPreferredWidth(50);
-            tbConsulta.getColumnModel().getColumn(3).setPreferredWidth(50);
-        }
 
         jLabel1.setText("Cpf do Hóspede: ");
+
+        jLabel2.setText("Diárias:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,9 +99,12 @@ public class PagamentoView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -117,9 +115,11 @@ public class PagamentoView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(22, 22, 22)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         pack();
@@ -134,30 +134,29 @@ public class PagamentoView extends javax.swing.JInternalFrame {
             return;
         preencherTable();
     }//GEN-LAST:event_txtCpfPropertyChange
-
+    
     private void preencherTable() {
-        DefaultTableModel model;
-        model = (DefaultTableModel) tbConsulta.getModel();
+        DefaultTableModel model = (DefaultTableModel) tbConsulta.getModel();
         PagamentoControl control = new PagamentoControl();
         Vector col;
         model.getDataVector().clear();
-        java.util.List<Diaria> locacoes = control.listar(txtCpf.getText());
-        if (locacoes == null) {
+        java.util.List<Diarias> tabela = control.listar(txtCpf.getText());
+        if (tabela == null) {
             txtCpf.setText(null);
             return;
         }
-        for (Diaria diaria : locacoes) {
+        for (Diarias diarias : tabela) {
             col = new Vector();
-            col.add(diaria.getCod());
-            col.add(diaria.getIdLocacao());
-            col.add(diaria.getReferente());
-            col.add(diaria.getValor());
+            col.add(diarias.getIdLocacao());
+            col.add(diarias.getAtualizacao());
+            col.add(diarias.getTotal());
             model.addRow(col);
         }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbConsulta;
     private javax.swing.JFormattedTextField txtCpf;

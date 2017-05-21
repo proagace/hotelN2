@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.sp.fatec.ServicosTecnicos;
+package br.gov.sp.fatec.ServicosTecnicos.Persistencia;
+import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;

@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.sp.fatec.Control;
-import br.gov.sp.fatec.Model.Diaria;
-import br.gov.sp.fatec.ServicosTecnicos.BancoFactory;
-import br.gov.sp.fatec.ServicosTecnicos.DAO;
+package br.gov.sp.fatec.ServicosTecnicos.Persistencia;
+import br.gov.sp.fatec.Model.Diarias;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,39 +16,55 @@ import java.util.List;
  *
  * @author Thiago
  */
-public class DiariasDAO implements DAO<Diaria> {
+public class DiariasDAO implements DAO<Diarias> {
     private ResultSet rs;
     private PreparedStatement pst;
     
     @Override
-    public boolean adicionar(Diaria item) throws SQLException {
+    public boolean adicionar(Diarias item) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean remover(Diaria item) throws SQLException {
+    public boolean remover(Diarias item) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Diaria buscar(Diaria item) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Diarias buscar(Diarias item) throws SQLException {
+        pst = BancoFactory.abreBanco().prepareStatement(
+                "select * from Diarias where idLocacao=?"
+        );
+        pst.setInt(1, item.getIdLocacao());
+        try {
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                item.setAtualizacao(rs.getDate("dataAtualizacao"));
+                item.setTotal(rs.getFloat("vlrDiarias"));
+                return item;
+            }   
+        } catch (SQLException e) {
+            Messages.showError("Erro ao buscar produto: " + e.getMessage());
+        } finally {
+            BancoFactory.fechaBanco();
+        }
+        return null;
     }
 
     @Override
-    public List<Diaria> listar(String criterio) throws SQLException {
-        List<Diaria> aux = new ArrayList<>();
-        String sql = "select * from Diariasacumuladas ";
+    public List<Diarias> listar(String criterio) throws SQLException {
+        List<Diarias> aux = new ArrayList<>();
+        String sql = "select * from Diarias ";
         if (criterio.length() > 0)
             sql += criterio;
         pst = BancoFactory.abreBanco().prepareStatement(sql);
         try {
             rs = pst.executeQuery();     
             while(rs.next()) {
-                aux.add(new Diaria(rs.getInt("idDiariasAcumuladas"), 
+                aux.add(new Diarias(
                         rs.getInt("idLocacao"), 
-                        rs.getDate("dataReferente"),
-                        rs.getFloat("valor")
+                        rs.getDate("dataAtualizacao"),
+                        rs.getFloat("vlrDiarias")
                 ));
             }
             return aux;

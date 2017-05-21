@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.sp.fatec.ServicosTecnicos;
+package br.gov.sp.fatec.ServicosTecnicos.Persistencia;
 import java.sql.SQLException;
 import java.util.List;
 

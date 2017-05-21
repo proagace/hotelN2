@@ -15,7 +15,7 @@ public class Locacao {
     private int id, idHospede, numQuarto, idFuncionario;
     private Date dataCheckIn, dataCheckOut;
 
-    public Locacao(int id, int idHospede, int numQuarto, int idFuncionario, Date dataCheckIn, Date dataCheckOut) {
+    public Locacao(int id, int numQuarto, int idHospede, Date dataCheckIn, Date dataCheckOut, int idFuncionario) {
         this.id = id;
         this.idHospede = idHospede;
         this.numQuarto = numQuarto;
@@ -27,6 +27,8 @@ public class Locacao {
     public Locacao(int idHospede) {
         this.idHospede = idHospede;
     }
+    
+    public Locacao() { }
     
     public int getId() {
         return id;

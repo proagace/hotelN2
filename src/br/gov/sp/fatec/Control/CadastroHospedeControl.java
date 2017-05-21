@@ -5,6 +5,7 @@
  */
 package br.gov.sp.fatec.Control;
 
+import br.gov.sp.fatec.ServicosTecnicos.Persistencia.HospedeDAO;
 import br.gov.sp.fatec.Model.Hospede;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.sql.SQLException;

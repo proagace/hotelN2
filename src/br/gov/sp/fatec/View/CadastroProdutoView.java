@@ -56,8 +56,6 @@ public class CadastroProdutoView extends javax.swing.JInternalFrame {
         lbl_icon = new javax.swing.JLabel();
 
         setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
         setTitle("Cadastro de Produtos");
         setVisible(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {

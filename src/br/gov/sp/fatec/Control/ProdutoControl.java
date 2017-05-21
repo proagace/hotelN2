@@ -5,6 +5,7 @@
  */
 package br.gov.sp.fatec.Control;
 
+import br.gov.sp.fatec.ServicosTecnicos.Persistencia.ProdutoDAO;
 import br.gov.sp.fatec.Model.Produto;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import br.gov.sp.fatec.ServicosTecnicos.TipoProdutoEnum;

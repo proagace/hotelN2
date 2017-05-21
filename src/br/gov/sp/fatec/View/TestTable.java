@@ -34,7 +34,6 @@ public class TestTable extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
 
         setClosable(true);
-        setIconifiable(true);
         setTitle("Locação");
         setVisible(true);
 

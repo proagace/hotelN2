@@ -5,9 +5,10 @@
  */
 package br.gov.sp.fatec.View;
 
-import br.gov.sp.fatec.ServicosTecnicos.BancoFactory;
+import br.gov.sp.fatec.ServicosTecnicos.Persistencia.BancoFactory;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -72,6 +74,12 @@ public class MainView extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
+            }
+        });
+
+        mainContainer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mainContainerMouseClicked(evt);
             }
         });
 
@@ -196,6 +204,11 @@ public class MainView extends javax.swing.JFrame {
         abreForm(new CadastroHospedeView());
     }//GEN-LAST:event_menuHospedesActionPerformed
 
+    private void mainContainerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainContainerMouseClicked
+        if (evt.isControlDown())
+            mainContainer.add(new TestMenuMouse(evt.getPoint()));
+    }//GEN-LAST:event_mainContainerMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -241,17 +254,25 @@ public class MainView extends javax.swing.JFrame {
 
     public static void abreForm (JInternalFrame window) {
         if (mainContainer.getComponentCount() > 0 && !(window instanceof DatePick)) {
-            mainContainer.getComponent(0).setVisible(false);
+            for (Component component : mainContainer.getComponents()) {
+                component.setVisible(false);
+            }
             mainContainer.removeAll();
         }
         window.setLocation(new Point((mainContainer.getWidth() - window.getWidth())/2, 
                                 (mainContainer.getHeight() - window.getHeight())/2));
+        ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
         mainContainer.add(window);
         try {
             window.setSelected(true);
         } catch (PropertyVetoException ex) {
             Messages.showError("Erro ao adquirir foco: " + ex.getMessage());
         }
+    }
+    
+    public static void removeForm (JInternalFrame window) {
+        window.setVisible(false);
+        mainContainer.remove(window);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

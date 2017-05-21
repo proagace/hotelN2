@@ -209,6 +209,10 @@ public class CadastroHospedeView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbTipoTelActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        if (!verificaCampos()) {
+            Messages.showInformation("Preencha todos os campos!");
+            return;
+        }
         boolean result = control.adicionar(new Hospede(txtCpf.getText(), txtNome.getText(), txtTelefone.getText(), txtEmail.getText(), dcNasc.getDate()));
         if (result)
             Messages.showInformation("Hospede cadastrado!");
@@ -269,6 +273,18 @@ public class CadastroHospedeView extends javax.swing.JInternalFrame {
         }
         toggleState(false);
         txtCpf.requestFocus();
+    }
+    
+    private boolean verificaCampos() {
+        for (Component component : getContentPane().getComponents()) {
+            if (component instanceof javax.swing.JTextField && 
+               ((javax.swing.JTextField)component).getText().length() == 0)
+                return false;
+            else if (component instanceof com.toedter.calendar.JDateChooser && 
+                    ((com.toedter.calendar.JDateChooser)component).getDate() == null)
+                return false;
+        }
+        return true;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

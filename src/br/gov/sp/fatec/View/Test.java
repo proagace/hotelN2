@@ -5,7 +5,7 @@
  */
 package br.gov.sp.fatec.View;
 
-import br.gov.sp.fatec.Control.ProdutoDAO;
+import br.gov.sp.fatec.ServicosTecnicos.Persistencia.ProdutoDAO;
 import br.gov.sp.fatec.Model.ItemMenu;
 import br.gov.sp.fatec.Model.Produto;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
@@ -41,8 +41,6 @@ public class Test extends javax.swing.JInternalFrame {
         list_pedidos = new javax.swing.JList<>();
 
         setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
         setTitle("Consumo");
         setVisible(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {

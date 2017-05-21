@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.sp.fatec.Control;
+package br.gov.sp.fatec.ServicosTecnicos.Persistencia;
 
 import br.gov.sp.fatec.Model.Produto;
-import br.gov.sp.fatec.ServicosTecnicos.BancoFactory;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
-import br.gov.sp.fatec.ServicosTecnicos.DAO;
 import br.gov.sp.fatec.ServicosTecnicos.TipoProdutoEnum;
 import java.sql.SQLException;
 import java.util.List;

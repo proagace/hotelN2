@@ -5,7 +5,7 @@
  */
 package br.gov.sp.fatec.View;
 
-import br.gov.sp.fatec.Control.UsuarioDAO;
+import br.gov.sp.fatec.ServicosTecnicos.Persistencia.UsuarioDAO;
 import br.gov.sp.fatec.Model.Usuario;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.beans.PropertyVetoException;
