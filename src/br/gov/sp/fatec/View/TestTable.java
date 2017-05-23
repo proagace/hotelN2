@@ -7,17 +7,27 @@ package br.gov.sp.fatec.View;
 
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.util.Date;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
  * @author Thiago
  */
 public class TestTable extends javax.swing.JInternalFrame {
-
+    private static TestTable window;
     /**
      * Creates new form TestTable
      */
-    public TestTable() {
+    
+    public static TestTable getInstance() {
+        if (window == null) {
+            window = new TestTable();
+            ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
+        } 
+        return window;
+    }
+    
+    private TestTable() {
         initComponents();
     }
 
@@ -98,7 +108,7 @@ public class TestTable extends javax.swing.JInternalFrame {
             Object temp = jTable1.getValueAt(row, 3);
             if (temp != null)
                 jTable1.setValueAt(null, row, 3);
-            MainView.abreForm(new DatePick(jTable1, row, col));
+            MainView.abreForm(DatePick.getInstance(jTable1, row, col));
         }
     }//GEN-LAST:event_jTable1MouseClicked
 

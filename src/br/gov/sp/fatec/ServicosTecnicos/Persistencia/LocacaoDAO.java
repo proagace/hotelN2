@@ -34,7 +34,7 @@ public class LocacaoDAO implements DAO<Locacao> {
     @Override
     public Locacao buscar(Locacao item) throws SQLException {
         pst = BancoFactory.abreBanco().prepareStatement(
-                "select * from Locacao where idHospede=?"
+                "select * from viewLocacao where idHospede=?"
         );
         pst.setInt(1, item.getIdHospede());
         try {
@@ -58,7 +58,7 @@ public class LocacaoDAO implements DAO<Locacao> {
     @Override
     public List<Locacao> listar(String criterio) throws SQLException {
         List<Locacao> aux = new ArrayList<>();
-        String sql = "select * from Locacao ";
+        String sql = "select * from viewLocacao ";
         if (criterio.length() > 0)
             sql += criterio;
         pst = BancoFactory.abreBanco().prepareStatement(sql);
@@ -67,10 +67,14 @@ public class LocacaoDAO implements DAO<Locacao> {
             while(rs.next()) {
                 aux.add(new Locacao(rs.getInt("idLocacao"), 
                         rs.getInt("numQuarto"), 
+                        rs.getFloat("vlrDiaria"),
                         rs.getInt("idHospede"),
                         rs.getDate("dataCheckIn"),
                         rs.getDate("dataCheckOut"),
-                        rs.getInt("idFuncionario")
+                        rs.getInt("idFuncionario"),
+                        rs.getDate("dataCriacao"),
+                        rs.getDate("dataAtualizacao"),
+                        rs.getFloat("vlrDiarias")
                 ));
             }
             return aux;
@@ -80,6 +84,18 @@ public class LocacaoDAO implements DAO<Locacao> {
             BancoFactory.fechaBanco();
         }
         return null;
+    }
+
+    @Override
+    public boolean atualizar(Locacao item) throws SQLException {
+        pst = BancoFactory.abreBanco().prepareStatement(
+                "update viewLocacao set dataAtualizacao = ?, vlrDiarias = ? where idLocacao = ?"
+        );
+        pst.setDate(1, new java.sql.Date(item.getDataAtualizacao().getTime()));
+        pst.setFloat(2, item.getVlrDiarias());
+        pst.setInt(3, item.getId());
+        int rows = pst.executeUpdate();
+        return (rows > 0);
     }
     
 }

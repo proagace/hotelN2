@@ -5,57 +5,53 @@
  */
 package br.gov.sp.fatec.ServicosTecnicos.Persistencia;
 
-import br.gov.sp.fatec.Model.Usuario;
-import br.gov.sp.fatec.ServicosTecnicos.Messages;
+import br.gov.sp.fatec.Model.Quarto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 /**
  *
  * @author Thiago
  */
-public class UsuarioDAO implements DAO<Usuario> {
+public class QuartoDAO implements DAO<Quarto> {
     private ResultSet rs;
     private PreparedStatement pst;
     
     @Override
-    public boolean adicionar(Usuario item) throws SQLException {
+    public boolean adicionar(Quarto item) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean remover(Usuario item) throws SQLException {
+    public boolean remover(Quarto item) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Usuario buscar(Usuario item) throws SQLException {
+    public Quarto buscar(Quarto item) throws SQLException {
         pst = BancoFactory.abreBanco().prepareStatement(
-                "select * from Usuario where nome = ?"
+                "select * from Quarto where numQuarto = ?"
         );
-        pst.setString(1, item.getNome());
-        try {
-            rs = pst.executeQuery();
-            if (rs.next())
-                return new Usuario(rs.getString("nome"), rs.getString("senha"), rs.getInt("nivel"));
-        } catch (Exception e) {
-            Messages.showError("Erro na leitura do banco: " + e.getMessage());
-        } finally {
-            BancoFactory.fechaBanco();
-        }
-        return null;
+        pst.setInt(1, item.getNumQuarto());
+        rs = pst.executeQuery();
+        if (rs.next()) {
+            item.setDisponibilidade(rs.getBoolean("disponibilidade"));
+            item.setTipo(rs.getString("tipo"));
+            item.setVlrDiaria(rs.getFloat("vlrDiaria"));
+        } else
+            item = null;
+        return item;
     }
 
     @Override
-    public List<Usuario> listar(String criterio) throws SQLException {
+    public List<Quarto> listar(String criterio) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean atualizar(Usuario item) throws SQLException {
+    public boolean atualizar(Quarto item) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

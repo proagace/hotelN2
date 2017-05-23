@@ -107,5 +107,10 @@ public class ProdutoDAO implements DAO<Produto> {
         }
         return null;
     }
+
+    @Override
+    public boolean atualizar(Produto item) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

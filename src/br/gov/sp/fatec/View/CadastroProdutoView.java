@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -27,10 +28,20 @@ import javax.swing.JTextField;
  */
 public class CadastroProdutoView extends javax.swing.JInternalFrame {
     private DefaultComboBoxModel<TipoProdutoEnum> modelo;
+    private static CadastroProdutoView window;
     /**
      * Creates new form NewJInternalFrame
      */
-    public CadastroProdutoView() {
+    
+    public static CadastroProdutoView getInstance() {
+        if (window == null) {
+            window = new CadastroProdutoView();
+            ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
+        }
+        return window;
+    }
+    
+    private CadastroProdutoView() {
         initComponents();
         getRootPane().setDefaultButton(btn_enviar);
     }
