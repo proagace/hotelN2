@@ -10,7 +10,6 @@ import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 /**
@@ -51,6 +50,11 @@ public class UsuarioDAO implements DAO<Usuario> {
 
     @Override
     public List<Usuario> listar(String criterio) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean atualizar(Usuario item) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

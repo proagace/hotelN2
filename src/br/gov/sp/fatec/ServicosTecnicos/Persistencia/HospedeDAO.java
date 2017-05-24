@@ -75,5 +75,10 @@ public class HospedeDAO implements DAO<Hospede> {
     public List<Hospede> listar(String criterio) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public boolean atualizar(Hospede item) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

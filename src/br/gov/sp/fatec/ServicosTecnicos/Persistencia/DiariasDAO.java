@@ -75,5 +75,10 @@ public class DiariasDAO implements DAO<Diarias> {
         }
         return null;
     }
+
+    @Override
+    public boolean atualizar(Diarias item) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

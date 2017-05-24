@@ -14,7 +14,9 @@ import java.util.List;
  */
 public interface DAO<T> {
     boolean adicionar(T item) throws SQLException;
+    boolean atualizar(T item) throws SQLException;
     boolean remover(T item) throws SQLException;
     T buscar(T item) throws SQLException;
     List<T> listar(String criterio) throws SQLException;
+    
 }

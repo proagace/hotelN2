@@ -66,6 +66,7 @@ public class MainView extends javax.swing.JFrame {
         menuTeste = new javax.swing.JMenu();
         test1 = new javax.swing.JMenuItem();
         test2 = new javax.swing.JMenuItem();
+        menuReserva = new javax.swing.JMenuItem();
         menuDiarias = new javax.swing.JMenu();
         pagamento = new javax.swing.JMenuItem();
 
@@ -138,6 +139,14 @@ public class MainView extends javax.swing.JFrame {
         });
         menuTeste.add(test2);
 
+        menuReserva.setText("Reserva");
+        menuReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuReservaActionPerformed(evt);
+            }
+        });
+        menuTeste.add(menuReserva);
+
         jMenuBar1.add(menuTeste);
 
         menuDiarias.setMnemonic('d');
@@ -208,6 +217,10 @@ public class MainView extends javax.swing.JFrame {
         if (evt.isControlDown())
             mainContainer.add(new TestMenuMouse(evt.getPoint()));
     }//GEN-LAST:event_mainContainerMouseClicked
+
+    private void menuReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReservaActionPerformed
+        abreForm(new ReservaView());
+    }//GEN-LAST:event_menuReservaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -282,6 +295,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenu menuDiarias;
     private javax.swing.JMenuItem menuHospedes;
     private javax.swing.JMenuItem menuProdutos;
+    private javax.swing.JMenuItem menuReserva;
     private javax.swing.JMenu menuTeste;
     private javax.swing.JMenuItem pagamento;
     private javax.swing.JMenuItem test1;

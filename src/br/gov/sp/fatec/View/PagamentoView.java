@@ -7,7 +7,6 @@ package br.gov.sp.fatec.View;
 
 import br.gov.sp.fatec.Control.PagamentoControl;
 import br.gov.sp.fatec.Model.Diarias;
-import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
