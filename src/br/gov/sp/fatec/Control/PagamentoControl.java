@@ -6,11 +6,11 @@
 package br.gov.sp.fatec.Control;
 
 import br.gov.sp.fatec.ServicosTecnicos.Persistencia.DiariasDAO;
-import br.gov.sp.fatec.ServicosTecnicos.Persistencia.LocacaoDAO;
+import br.gov.sp.fatec.ServicosTecnicos.Persistencia.CadastroDAO;
 import br.gov.sp.fatec.ServicosTecnicos.Persistencia.HospedeDAO;
 import br.gov.sp.fatec.Model.Diarias;
 import br.gov.sp.fatec.Model.Hospede;
-import br.gov.sp.fatec.Model.Locacao;
+import br.gov.sp.fatec.Model.Cadastro;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.sql.SQLException;
 import java.util.List;
@@ -23,11 +23,11 @@ import java.util.logging.Logger;
  */
 public class PagamentoControl {
     private DiariasDAO daod = new DiariasDAO();
-    private LocacaoDAO daol = new LocacaoDAO();
+    private CadastroDAO daol = new CadastroDAO();
     private HospedeDAO daoh = new HospedeDAO();
     
     public List<Diarias> listar(String cpf) {
-        java.util.List<Locacao> temp;
+        java.util.List<Cadastro> temp;
         try {
             Hospede aux = daoh.buscar(new Hospede(cpf));
             if (aux == null) {
@@ -37,7 +37,7 @@ public class PagamentoControl {
             temp = daol.listar("where idHospede=" + aux.getIdHospede());
             if (temp != null) {
                 java.util.List<Diarias> diarias = new java.util.ArrayList<>();
-                for (Locacao locacao : temp) {
+                for (Cadastro locacao : temp) {
                     Diarias obj = new Diarias();
                     obj.setIdLocacao(locacao.getId());
                     obj = daod.buscar(obj);
@@ -54,7 +54,7 @@ public class PagamentoControl {
     }
     
     public int getQuartoLocacao(int idLocacao) {
-        Locacao temp = new Locacao();
+        Cadastro temp = new Cadastro();
         temp.setId(idLocacao);
         try {
             return daol.buscar(temp).getNumQuarto();

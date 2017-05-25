@@ -13,11 +13,18 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author Thiago
  */
 public class TestMenuMouse extends javax.swing.JInternalFrame {
-
+    private static TestMenuMouse window;
     /**
      * Creates new form TestMenuMouse
      */
-    public TestMenuMouse(java.awt.Point location) {
+    
+    public static TestMenuMouse getInstance(java.awt.Point location) {
+        if (window == null)
+            window = new TestMenuMouse(location);
+        return window;
+    }
+    
+    private TestMenuMouse(java.awt.Point location) {
         initComponents();
         setOpaque(false);
         ((BasicInternalFrameUI)getUI()).setNorthPane(null);
@@ -89,24 +96,26 @@ public class TestMenuMouse extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospedeActionPerformed
-        MainView.abreForm(new CadastroHospedeView());
+        MainView.abreForm(CadastroHospedeView.getInstance());
     }//GEN-LAST:event_btnHospedeActionPerformed
 
     private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed
-        MainView.abreForm(new CadastroProdutoView());
+        MainView.abreForm(CadastroProdutoView.getInstance());
     }//GEN-LAST:event_btnProdutoActionPerformed
 
     private void btnConsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsumoActionPerformed
-        MainView.abreForm(new Test());
+        MainView.abreForm(Test.getInstance());
     }//GEN-LAST:event_btnConsumoActionPerformed
 
     private void btnQuitacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitacaoActionPerformed
-        MainView.abreForm(new PagamentoView());
+        MainView.abreForm(PagamentoView.getInstance());
     }//GEN-LAST:event_btnQuitacaoActionPerformed
 
     private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
-        if (compare(evt.getLocationOnScreen()))
+        if (compare(evt.getLocationOnScreen())) {
             MainView.removeForm(this);
+            window = null;
+        }
         
     }//GEN-LAST:event_formMouseExited
 

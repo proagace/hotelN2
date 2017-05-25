@@ -5,6 +5,7 @@
  */
 package br.gov.sp.fatec.View;
 
+import br.gov.sp.fatec.Control.AtualizaDiariasControl;
 import br.gov.sp.fatec.ServicosTecnicos.Persistencia.BancoFactory;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.awt.Color;
@@ -14,6 +15,8 @@ import java.awt.Image;
 import java.awt.Point;
 import java.beans.PropertyVetoException;
 import java.io.File;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -179,7 +182,7 @@ public class MainView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuProdutosActionPerformed
-        abreForm(new CadastroProdutoView());
+        abreForm(CadastroProdutoView.getInstance());
     }//GEN-LAST:event_menuProdutosActionPerformed
   
     public void toggleMenus() {
@@ -191,6 +194,9 @@ public class MainView extends javax.swing.JFrame {
     }
     
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        AtualizaDiariasControl ctrl = new AtualizaDiariasControl();
+        ctrl.atualizar();
+        mainContainer.add(new NotificacaoView());
         if (debug)
             return;
         toggleMenus();
@@ -198,24 +204,24 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
    
     private void test1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_test1ActionPerformed
-        abreForm(new Test());
+        abreForm(Test.getInstance());
     }//GEN-LAST:event_test1ActionPerformed
 
     private void test2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_test2ActionPerformed
-        abreForm(new TestTable());
+        abreForm(LocacaoView.getInstance());
     }//GEN-LAST:event_test2ActionPerformed
 
     private void pagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagamentoActionPerformed
-        abreForm(new PagamentoView());
+        abreForm(PagamentoView.getInstance());
     }//GEN-LAST:event_pagamentoActionPerformed
 
     private void menuHospedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHospedesActionPerformed
-        abreForm(new CadastroHospedeView());
+        abreForm(CadastroHospedeView.getInstance());
     }//GEN-LAST:event_menuHospedesActionPerformed
 
     private void mainContainerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainContainerMouseClicked
         if (evt.isControlDown())
-            mainContainer.add(new TestMenuMouse(evt.getPoint()));
+            mainContainer.add(TestMenuMouse.getInstance(evt.getPoint()));
     }//GEN-LAST:event_mainContainerMouseClicked
 
     private void menuReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReservaActionPerformed
@@ -255,6 +261,19 @@ public class MainView extends javax.swing.JFrame {
                 new MainView().setVisible(true);
             }
         });
+        
+        Runnable update = new Runnable() {
+            public void run() {
+                NotificacaoView.preencherTable();
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                update.run();
+            }
+        }, System.currentTimeMillis() % 60000, 60000);
     }
 
     public String getUsuarioLogado() {
@@ -266,16 +285,14 @@ public class MainView extends javax.swing.JFrame {
     }
 
     public static void abreForm (JInternalFrame window) {
-        if (mainContainer.getComponentCount() > 0 && !(window instanceof DatePick)) {
-            for (Component component : mainContainer.getComponents()) {
-                component.setVisible(false);
-            }
-            mainContainer.removeAll();
+        for (Component component : mainContainer.getComponents()) {
+            if (component.equals(window))
+                return;
         }
         window.setLocation(new Point((mainContainer.getWidth() - window.getWidth())/2, 
                                 (mainContainer.getHeight() - window.getHeight())/2));
-        ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
         mainContainer.add(window);
+        window.setVisible(true);
         try {
             window.setSelected(true);
         } catch (PropertyVetoException ex) {

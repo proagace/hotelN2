@@ -5,30 +5,37 @@
  */
 package br.gov.sp.fatec.Model;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
  * @author Thiago
  */
-public class Locacao {
+public class Cadastro {
     private int id, idHospede, numQuarto, idFuncionario;
-    private Date dataCheckIn, dataCheckOut;
+    private Date dataCheckIn, dataCheckOut, dataCriacao, dataAtualizacao;
+    private float vlrDiaria, vlrDiarias;
+    private String tipoCadastro;
 
-    public Locacao(int id, int numQuarto, int idHospede, Date dataCheckIn, Date dataCheckOut, int idFuncionario) {
+    public Cadastro(int id, int numQuarto, float vlrDiaria, int idHospede, Date dataCheckIn, Date dataCheckOut, int idFuncionario, Date dataCriacao, Date dataAtualizacao, float vlrDiarias, String tipoCadastro) {
         this.id = id;
         this.idHospede = idHospede;
         this.numQuarto = numQuarto;
         this.idFuncionario = idFuncionario;
         this.dataCheckIn = dataCheckIn;
         this.dataCheckOut = dataCheckOut;
+        this.dataCriacao = dataCriacao;
+        this.dataAtualizacao = dataAtualizacao;
+        this.vlrDiaria = vlrDiaria;
+        this.vlrDiarias = vlrDiarias;
+        this.tipoCadastro = tipoCadastro;
     }
 
-    public Locacao(int idHospede) {
+    public Cadastro(int idHospede) {
         this.idHospede = idHospede;
     }
     
-    public Locacao() { }
+    public Cadastro() { }
     
     public int getId() {
         return id;
@@ -76,6 +83,38 @@ public class Locacao {
 
     public void setDataCheckOut(Date dataCheckOut) {
         this.dataCheckOut = dataCheckOut;
+    }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public Date getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(Date dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public float getVlrDiaria() {
+        return vlrDiaria;
+    }
+
+    public void setVlrDiaria(float vlrDiaria) {
+        this.vlrDiaria = vlrDiaria;
+    }
+
+    public float getVlrDiarias() {
+        return vlrDiarias;
+    }
+
+    public void setVlrDiarias(float vlrDiarias) {
+        this.vlrDiarias = vlrDiarias;
     }
     
     

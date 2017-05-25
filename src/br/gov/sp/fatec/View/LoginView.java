@@ -10,6 +10,7 @@ import br.gov.sp.fatec.Model.Usuario;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.beans.PropertyVetoException;
 import java.sql.SQLException;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -25,6 +26,7 @@ public class LoginView extends javax.swing.JInternalFrame {
         initComponents();
         getRootPane().setDefaultButton(btnLogar);
         this.main = main;
+        ((BasicInternalFrameUI)getUI()).getNorthPane().remove(0);
     }
 
     /**

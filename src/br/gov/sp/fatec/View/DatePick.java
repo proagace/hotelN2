@@ -9,19 +9,30 @@ import java.awt.event.WindowEvent;
 import java.util.Date;
 import javax.swing.JTable;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
  * @author Thiago
  */
 public class DatePick extends javax.swing.JInternalFrame {
+    private static DatePick window;
     private JTable target;
     private int row, col;
     /**
      * Creates new form DatePick
      * @param target
      */
-    public DatePick(JTable target, int row, int col) {
+    
+    public static DatePick getInstance(JTable target, int row, int col) {
+        if (window == null) {
+            window = new DatePick(target, row, col);
+            ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
+        }
+        return window;
+    }
+    
+    private DatePick(JTable target, int row, int col) {
         initComponents();
         this.target = target;
         this.row = row;

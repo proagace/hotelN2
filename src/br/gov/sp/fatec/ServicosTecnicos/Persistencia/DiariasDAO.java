@@ -62,7 +62,8 @@ public class DiariasDAO implements DAO<Diarias> {
             rs = pst.executeQuery();     
             while(rs.next()) {
                 aux.add(new Diarias(
-                        rs.getInt("idLocacao"), 
+                        rs.getInt("idLocacao"),
+                        rs.getDate("dataCriacao"),
                         rs.getDate("dataAtualizacao"),
                         rs.getFloat("vlrDiarias")
                 ));
@@ -78,7 +79,13 @@ public class DiariasDAO implements DAO<Diarias> {
 
     @Override
     public boolean atualizar(Diarias item) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pst = BancoFactory.abreBanco().prepareStatement(
+                "update Diarias set dataAtualizacao = ?, vlrDiarias = ?"
+        );
+        pst.setDate(1, new java.sql.Date(item.getAtualizacao().getTime()));
+        pst.setFloat(2, item.getTotal());
+        int rows = pst.executeUpdate();
+        return (rows > 0);
     }
     
 }

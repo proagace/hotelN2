@@ -32,6 +32,7 @@ public class Hospede {
         this.email = email;
         this.dataNasc = dataNasc;
     }
+    public Hospede(){}
 
     public Hospede(String cpf) {
         this.cpf = cpf;

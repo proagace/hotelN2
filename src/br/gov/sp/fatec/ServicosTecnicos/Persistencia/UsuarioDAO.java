@@ -33,7 +33,7 @@ public class UsuarioDAO implements DAO<Usuario> {
     @Override
     public Usuario buscar(Usuario item) throws SQLException {
         pst = BancoFactory.abreBanco().prepareStatement(
-                "select * from Usuarios where nome = ?"
+                "select * from Usuario where nome = ?"
         );
         pst.setString(1, item.getNome());
         try {

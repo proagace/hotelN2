@@ -13,6 +13,7 @@ import java.awt.Point;
 import java.sql.SQLException;
 import javax.swing.DefaultListModel;
 import java.util.*;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -20,10 +21,20 @@ import java.util.*;
  */
 public class Test extends javax.swing.JInternalFrame {
     public static DefaultListModel<ItemMenu> model = new DefaultListModel<>();
+    private static Test window;
     /**
      * Creates new form Test
      */
-    public Test() {
+    
+    public static Test getInstance() {
+        if (window == null) {
+            window = new Test();
+            ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
+        }
+        return window;
+    }
+    
+    private Test() {
         initComponents();
     }
     

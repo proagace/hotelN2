@@ -5,7 +5,7 @@
  */
 package br.gov.sp.fatec.ServicosTecnicos.Persistencia;
 
-import br.gov.sp.fatec.Model.Locacao;
+import br.gov.sp.fatec.Model.Cadastro;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,24 +17,40 @@ import java.util.List;
  *
  * @author Thiago
  */
-public class LocacaoDAO implements DAO<Locacao> {
+public class CadastroDAO implements DAO<Cadastro> {
     private ResultSet rs;
     private PreparedStatement pst;
     
     @Override
-    public boolean adicionar(Locacao item) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean remover(Locacao item) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Locacao buscar(Locacao item) throws SQLException {
+    public boolean adicionar(Cadastro item) throws SQLException {
         pst = BancoFactory.abreBanco().prepareStatement(
-                "select * from Locacao where idHospede=?"
+                    "insert into Locacao values (null, ?, ?, ?, ?, ?);");
+        pst.setInt(1, item.getNumQuarto());
+        pst.setInt(2, item.getIdHospede());        
+        pst.setDate(3, item.getDataCheckIn());
+        pst.setDate(4, item.getDataCheckOut());
+        pst.setInt(5, item.getIdFuncionario());
+        
+        try {
+            int rows = pst.executeUpdate();
+            return (rows > 0);
+        } catch (SQLException e) {
+           Messages.showError("Erro ao executar inserção: " + e.getMessage());
+        } finally {
+            BancoFactory.fechaBanco();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean remover(Cadastro item) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Cadastro buscar(Cadastro item) throws SQLException {
+        pst = BancoFactory.abreBanco().prepareStatement(
+                "select * from viewLocacao where idHospede=?"
         );
         pst.setInt(1, item.getIdHospede());
         try {
@@ -56,21 +72,26 @@ public class LocacaoDAO implements DAO<Locacao> {
     }
 
     @Override
-    public List<Locacao> listar(String criterio) throws SQLException {
-        List<Locacao> aux = new ArrayList<>();
-        String sql = "select * from Locacao ";
+    public List<Cadastro> listar(String criterio) throws SQLException {
+        List<Cadastro> aux = new ArrayList<>();
+        String sql = "select * from viewLocacao ";
         if (criterio.length() > 0)
             sql += criterio;
         pst = BancoFactory.abreBanco().prepareStatement(sql);
         try {
             rs = pst.executeQuery();     
             while(rs.next()) {
-                aux.add(new Locacao(rs.getInt("idLocacao"), 
+                aux.add(new Cadastro(rs.getInt("idLocacao"), 
                         rs.getInt("numQuarto"), 
+                        rs.getFloat("vlrDiaria"),
                         rs.getInt("idHospede"),
                         rs.getDate("dataCheckIn"),
                         rs.getDate("dataCheckOut"),
-                        rs.getInt("idFuncionario")
+                        rs.getInt("idFuncionario"),
+                        rs.getDate("dataCriacao"),
+                        rs.getDate("dataAtualizacao"),
+                        rs.getFloat("vlrDiarias"),
+                        rs.getString("tipoCadastro")
                 ));
             }
             return aux;
@@ -83,8 +104,15 @@ public class LocacaoDAO implements DAO<Locacao> {
     }
 
     @Override
-    public boolean atualizar(Locacao item) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean atualizar(Cadastro item) throws SQLException {
+        pst = BancoFactory.abreBanco().prepareStatement(
+                "update viewLocacao set dataAtualizacao = ?, vlrDiarias = ? where idLocacao = ?"
+        );
+        pst.setDate(1, new java.sql.Date(item.getDataAtualizacao().getTime()));
+        pst.setFloat(2, item.getVlrDiarias());
+        pst.setInt(3, item.getId());
+        int rows = pst.executeUpdate();
+        return (rows > 0);
     }
     
 }

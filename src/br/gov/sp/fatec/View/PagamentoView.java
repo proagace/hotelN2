@@ -8,6 +8,7 @@ package br.gov.sp.fatec.View;
 import br.gov.sp.fatec.Control.PagamentoControl;
 import br.gov.sp.fatec.Model.Diarias;
 import java.util.Vector;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,10 +16,20 @@ import javax.swing.table.DefaultTableModel;
  * @author Thiago
  */
 public class PagamentoView extends javax.swing.JInternalFrame {
+    private static PagamentoView window;
     /**
      * Creates new form PagamentoView
      */
-    public PagamentoView() {
+    
+    public static PagamentoView getInstance() {
+        if (window == null) {
+            window = new PagamentoView();
+            ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
+        }
+        return window;
+    }
+    
+    private PagamentoView() {
         initComponents();
     }
 

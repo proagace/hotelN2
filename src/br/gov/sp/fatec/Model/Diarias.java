@@ -13,13 +13,14 @@ import java.util.Date;
  */
 public class Diarias {
     private int idLocacao;
-    private Date atualizacao;
+    private Date criacao, atualizacao;
     private float total;
     private boolean pago;
 
-    public Diarias(int idLocacao, Date atualizacao, float total) {
+    public Diarias(int idLocacao, Date criacao, Date atualizacao, float total) {
         this.idLocacao = idLocacao;
         this.atualizacao = atualizacao;
+        this.criacao = criacao;
         this.total = total;
     }
 
