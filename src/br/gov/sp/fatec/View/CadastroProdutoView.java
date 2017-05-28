@@ -34,10 +34,12 @@ public class CadastroProdutoView extends javax.swing.JInternalFrame {
      */
     
     public static CadastroProdutoView getInstance() {
-        if (window == null) {
-            window = new CadastroProdutoView();
-            ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
-        }
+        if (window != null) {
+            window.dispose();
+            window = null;
+        } 
+        window = new CadastroProdutoView();
+        ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
         return window;
     }
     

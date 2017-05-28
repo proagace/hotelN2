@@ -6,6 +6,7 @@
 package br.gov.sp.fatec.View;
 
 import br.gov.sp.fatec.Control.AtualizaDiariasControl;
+import br.gov.sp.fatec.Model.Usuario;
 import br.gov.sp.fatec.ServicosTecnicos.Persistencia.BancoFactory;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.awt.Color;
@@ -30,8 +31,8 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  */
 public class MainView extends javax.swing.JFrame {
     private boolean stateMenus = false;
-    private String usuarioLogado = "";
-    public static final boolean debug = true;
+    public static Usuario funcionarioLogado;
+    public static final boolean debug = false;
     /**
      * Creates new form MainView
      */
@@ -68,7 +69,6 @@ public class MainView extends javax.swing.JFrame {
         menuHospedes = new javax.swing.JMenuItem();
         menuTeste = new javax.swing.JMenu();
         test1 = new javax.swing.JMenuItem();
-        test2 = new javax.swing.JMenuItem();
         menuReserva = new javax.swing.JMenuItem();
         menuDiarias = new javax.swing.JMenu();
         pagamento = new javax.swing.JMenuItem();
@@ -132,15 +132,6 @@ public class MainView extends javax.swing.JFrame {
             }
         });
         menuTeste.add(test1);
-
-        test2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.SHIFT_MASK));
-        test2.setText("TesteTable");
-        test2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                test2ActionPerformed(evt);
-            }
-        });
-        menuTeste.add(test2);
 
         menuReserva.setText("Reserva");
         menuReserva.addActionListener(new java.awt.event.ActionListener() {
@@ -207,10 +198,6 @@ public class MainView extends javax.swing.JFrame {
         abreForm(Test.getInstance());
     }//GEN-LAST:event_test1ActionPerformed
 
-    private void test2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_test2ActionPerformed
-        abreForm(LocacaoView.getInstance());
-    }//GEN-LAST:event_test2ActionPerformed
-
     private void pagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagamentoActionPerformed
         abreForm(PagamentoView.getInstance());
     }//GEN-LAST:event_pagamentoActionPerformed
@@ -225,7 +212,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_mainContainerMouseClicked
 
     private void menuReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReservaActionPerformed
-        abreForm(new ReservaView());
+        abreForm(LocacaoView.getInstance());
     }//GEN-LAST:event_menuReservaActionPerformed
 
     /**
@@ -276,14 +263,6 @@ public class MainView extends javax.swing.JFrame {
         }, System.currentTimeMillis() % 60000, 60000);
     }
 
-    public String getUsuarioLogado() {
-        return usuarioLogado;
-    }
-
-    public void setUsuarioLogado(String usuarioLogado) {
-        this.usuarioLogado = usuarioLogado;
-    }
-
     public static void abreForm (JInternalFrame window) {
         for (Component component : mainContainer.getComponents()) {
             if (component.equals(window))
@@ -316,6 +295,5 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenu menuTeste;
     private javax.swing.JMenuItem pagamento;
     private javax.swing.JMenuItem test1;
-    private javax.swing.JMenuItem test2;
     // End of variables declaration//GEN-END:variables
 }

@@ -29,10 +29,12 @@ public class CadastroHospedeView extends javax.swing.JInternalFrame {
      */
     
     public static CadastroHospedeView getInstance() {
-        if (window == null) {
-            window = new CadastroHospedeView();
-            ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
-        }
+        if (window != null) {
+            window.dispose();
+            window = null;
+        } 
+        window = new CadastroHospedeView();
+        ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
         return window;
     }
     

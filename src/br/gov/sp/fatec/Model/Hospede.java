@@ -5,6 +5,7 @@
  */
 package br.gov.sp.fatec.Model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -38,6 +39,11 @@ public class Hospede {
         this.cpf = cpf;
     }
 
+    @Override
+    public String toString() {
+        return "Nome: " + nome + ", Telefone: " + telefone + " | E-Mail: " + email;
+    }
+    
     public int getIdHospede() {
         return idHospede;
     }

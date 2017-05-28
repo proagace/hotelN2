@@ -11,7 +11,7 @@ import br.gov.sp.fatec.Model.Cadastro;
 import br.gov.sp.fatec.Model.Quarto;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import br.gov.sp.fatec.ServicosTecnicos.Persistencia.DiariasDAO;
-import br.gov.sp.fatec.ServicosTecnicos.Persistencia.CadastroDAO;
+import br.gov.sp.fatec.ServicosTecnicos.Persistencia.CadastroViewDAO;
 import br.gov.sp.fatec.ServicosTecnicos.Persistencia.QuartoDAO;
 import java.sql.SQLException;
 import java.util.Date;
@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  */
 public class NotificacaoControl {
     private DiariasDAO daod = new DiariasDAO();
-    private CadastroDAO daol = new CadastroDAO();
+    private CadastroViewDAO daol = new CadastroViewDAO();
     private QuartoDAO daoq = new QuartoDAO();
     
     public List<Diarias> listar() {

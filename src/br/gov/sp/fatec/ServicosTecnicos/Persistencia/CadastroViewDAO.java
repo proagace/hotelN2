@@ -17,14 +17,14 @@ import java.util.List;
  *
  * @author Thiago
  */
-public class CadastroDAO implements DAO<Cadastro> {
+public class CadastroViewDAO implements DAO<Cadastro> {
     private ResultSet rs;
     private PreparedStatement pst;
     
     @Override
     public boolean adicionar(Cadastro item) throws SQLException {
         pst = BancoFactory.abreBanco().prepareStatement(
-                    "insert into Cadastro (numQuarto, idHospede, dataCheckIn,"
+                    "insert into viewCadastro (numQuarto, idHospede, dataCheckIn,"
                             + " dataCheckOut, idFuncionario, tipoCadastro) values (?, ?, ?, ?, ?, ?)");
         pst.setInt(1, item.getNumQuarto());
         pst.setInt(2, item.getIdHospede());        
@@ -52,7 +52,7 @@ public class CadastroDAO implements DAO<Cadastro> {
     @Override
     public Cadastro buscar(Cadastro item) throws SQLException {
         pst = BancoFactory.abreBanco().prepareStatement(
-                "select * from Cadastro where idHospede=?"
+                "select * from viewCadastro where cpf=?"
         );
         pst.setString(1, item.getCpf());
         try {
@@ -76,7 +76,7 @@ public class CadastroDAO implements DAO<Cadastro> {
     @Override
     public List<Cadastro> listar(String criterio) throws SQLException {
         List<Cadastro> aux = new ArrayList<>();
-        String sql = "select * from Cadastro ";
+        String sql = "select * from viewCadastro ";
         if (criterio.length() > 0)
             sql += criterio;
         pst = BancoFactory.abreBanco().prepareStatement(sql);
@@ -85,10 +85,14 @@ public class CadastroDAO implements DAO<Cadastro> {
             while(rs.next()) {
                 aux.add(new Cadastro(rs.getInt("idCadastro"), 
                         rs.getInt("numQuarto"), 
-                        rs.getInt("idHospede"),
+                        rs.getFloat("vlrDiaria"),
+                        rs.getString("cpf"),
                         rs.getDate("dataCheckIn"),
                         rs.getDate("dataCheckOut"),
                         rs.getInt("idFuncionario"),
+                        rs.getDate("dataCriacao"),
+                        rs.getDate("dataAtualizacao"),
+                        rs.getFloat("vlrDiarias"),
                         rs.getString("tipoCadastro")
                 ));
             }
@@ -104,13 +108,13 @@ public class CadastroDAO implements DAO<Cadastro> {
     @Override
     public boolean atualizar(Cadastro item) throws SQLException {
         pst = BancoFactory.abreBanco().prepareStatement(
-                "update Cadastro set tipoCadastro = ? where idCadastro = ?"
+                "update viewCadastro set dataAtualizacao = ?, vlrDiarias = ? where idCadastro = ?"
         );
-        pst.setString(1, item.getTipoCadastro());
-        pst.setInt(2, item.getId());
-        
+        pst.setDate(1, new java.sql.Date(item.getDataAtualizacao().getTime()));
+        pst.setFloat(2, item.getVlrDiarias());
+        pst.setInt(3, item.getId());
         int rows = pst.executeUpdate();
-        return rows > 0;
+        return (rows > 0);
     }
     
 }

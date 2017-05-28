@@ -10,16 +10,26 @@ package br.gov.sp.fatec.Model;
  * @author Thiago
  */
 public class Usuario {
+    private int id;
     private String nome;
     private String senha;
     private int nivel;
 
     public Usuario(){}
 
-    public Usuario(String nome, String senha, int nivel) {
+    public Usuario(int id, String nome, String senha, int nivel) {
+        this.id = id;
         this.nome = nome;
         this.senha = senha;
         this.nivel = nivel;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     public String getNome() {

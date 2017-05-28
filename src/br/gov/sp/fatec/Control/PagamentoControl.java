@@ -6,12 +6,13 @@
 package br.gov.sp.fatec.Control;
 
 import br.gov.sp.fatec.ServicosTecnicos.Persistencia.DiariasDAO;
-import br.gov.sp.fatec.ServicosTecnicos.Persistencia.CadastroDAO;
+import br.gov.sp.fatec.ServicosTecnicos.Persistencia.CadastroViewDAO;
 import br.gov.sp.fatec.ServicosTecnicos.Persistencia.HospedeDAO;
 import br.gov.sp.fatec.Model.Diarias;
 import br.gov.sp.fatec.Model.Hospede;
 import br.gov.sp.fatec.Model.Cadastro;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
+import br.gov.sp.fatec.ServicosTecnicos.Persistencia.CadastroDAO;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;

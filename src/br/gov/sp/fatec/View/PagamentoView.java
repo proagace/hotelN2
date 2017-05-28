@@ -22,10 +22,12 @@ public class PagamentoView extends javax.swing.JInternalFrame {
      */
     
     public static PagamentoView getInstance() {
-        if (window == null) {
-            window = new PagamentoView();
-            ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
-        }
+        if (window != null) {
+            window.dispose();
+            window = null;
+        } 
+        window = new PagamentoView();
+        ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
         return window;
     }
     

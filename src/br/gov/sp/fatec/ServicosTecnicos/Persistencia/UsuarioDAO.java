@@ -39,7 +39,7 @@ public class UsuarioDAO implements DAO<Usuario> {
         try {
             rs = pst.executeQuery();
             if (rs.next())
-                return new Usuario(rs.getString("nome"), rs.getString("senha"), rs.getInt("nivel"));
+                return new Usuario(rs.getInt("idUsuario"), rs.getString("nome"), rs.getString("senha"), rs.getInt("nivel"));
         } catch (Exception e) {
             Messages.showError("Erro na leitura do banco: " + e.getMessage());
         } finally {

@@ -113,7 +113,7 @@ public class LoginView extends javax.swing.JInternalFrame {
         }
         if (compare != null && compare.getSenha().equals(temp.getSenha())) {
             main.toggleMenus();
-            main.setUsuarioLogado(compare.getNome());
+            MainView.funcionarioLogado = compare;
             try {
                 this.setClosed(true);
             } catch (PropertyVetoException ex) {

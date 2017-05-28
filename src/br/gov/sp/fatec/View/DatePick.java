@@ -25,10 +25,12 @@ public class DatePick extends javax.swing.JInternalFrame {
      */
     
     public static DatePick getInstance(JTable target, int row, int col) {
-        if (window == null) {
+        if (window != null) {
+            window.dispose();
+            window = null;
+        } 
             window = new DatePick(target, row, col);
             ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
-        }
         return window;
     }
     

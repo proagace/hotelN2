@@ -12,14 +12,16 @@ import java.sql.Date;
  * @author Thiago
  */
 public class Cadastro {
-    private int id, idHospede, numQuarto, idFuncionario;
+    private int id, numQuarto, idFuncionario, idHospede;
     private Date dataCheckIn, dataCheckOut, dataCriacao, dataAtualizacao;
     private float vlrDiaria, vlrDiarias;
-    private String tipoCadastro;
+    private String tipoCadastro, cpf;
 
-    public Cadastro(int id, int numQuarto, float vlrDiaria, int idHospede, Date dataCheckIn, Date dataCheckOut, int idFuncionario, Date dataCriacao, Date dataAtualizacao, float vlrDiarias, String tipoCadastro) {
+    public Cadastro(int id, int numQuarto, float vlrDiaria, String cpf, Date dataCheckIn, 
+            Date dataCheckOut, int idFuncionario, Date dataCriacao, Date dataAtualizacao, 
+            float vlrDiarias, String tipoCadastro) {
         this.id = id;
-        this.idHospede = idHospede;
+        this.cpf = cpf;
         this.numQuarto = numQuarto;
         this.idFuncionario = idFuncionario;
         this.dataCheckIn = dataCheckIn;
@@ -31,8 +33,32 @@ public class Cadastro {
         this.tipoCadastro = tipoCadastro;
     }
 
-    public Cadastro(int idHospede) {
+    public Cadastro(int id, int numQuarto, int idHospede,  Date dataCheckIn, Date dataCheckOut, int idFuncionario, String tipoCadastro) {
+        this.id = id;
+        this.numQuarto = numQuarto;
         this.idHospede = idHospede;
+        this.dataCheckIn = dataCheckIn;
+        this.dataCheckOut = dataCheckOut;
+        this.idFuncionario = idFuncionario;
+        this.tipoCadastro = tipoCadastro;
+    }
+    
+    public Cadastro(int numQuarto, int idHospede,  Date dataCheckIn, Date dataCheckOut, int idFuncionario, String tipoCadastro) {
+        this.numQuarto = numQuarto;
+        this.idHospede = idHospede;
+        this.dataCheckIn = dataCheckIn;
+        this.dataCheckOut = dataCheckOut;
+        this.idFuncionario = idFuncionario;
+        this.tipoCadastro = tipoCadastro;
+    }
+    
+    public Cadastro(int id, String tipoCadastro) {
+        this.id = id;
+        this.tipoCadastro = tipoCadastro;
+    }
+    
+    public Cadastro(String cpf) {
+        this.cpf = cpf;
     }
     
     public Cadastro() { }
@@ -40,7 +66,7 @@ public class Cadastro {
     public int getId() {
         return id;
     }
-
+    
     public void setId(int id) {
         this.id = id;
     }
@@ -52,6 +78,26 @@ public class Cadastro {
     public void setIdHospede(int idHospede) {
         this.idHospede = idHospede;
     }
+
+    
+    
+    public String getTipoCadastro() {
+        return tipoCadastro;
+    }
+
+    public void setTipoCadastro(String tipoCadastro) {
+        this.tipoCadastro = tipoCadastro;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    
 
     public int getNumQuarto() {
         return numQuarto;

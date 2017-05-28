@@ -33,7 +33,7 @@ public class DiariasDAO implements DAO<Diarias> {
     @Override
     public Diarias buscar(Diarias item) throws SQLException {
         pst = BancoFactory.abreBanco().prepareStatement(
-                "select * from Diarias where idLocacao=?"
+                "select * from Diarias where idCadastro=?"
         );
         pst.setInt(1, item.getIdLocacao());
         try {
@@ -44,7 +44,7 @@ public class DiariasDAO implements DAO<Diarias> {
                 return item;
             }   
         } catch (SQLException e) {
-            Messages.showError("Erro ao buscar produto: " + e.getMessage());
+            Messages.showError("Erro ao buscar diária: " + e.getMessage());
         } finally {
             BancoFactory.fechaBanco();
         }
@@ -62,7 +62,7 @@ public class DiariasDAO implements DAO<Diarias> {
             rs = pst.executeQuery();     
             while(rs.next()) {
                 aux.add(new Diarias(
-                        rs.getInt("idLocacao"),
+                        rs.getInt("idCadastro"),
                         rs.getDate("dataCriacao"),
                         rs.getDate("dataAtualizacao"),
                         rs.getFloat("vlrDiarias")
@@ -70,7 +70,7 @@ public class DiariasDAO implements DAO<Diarias> {
             }
             return aux;
         } catch (SQLException e) {
-            Messages.showError("Erro ao listar produtos: " + e.getMessage());
+            Messages.showError("Erro ao listar diárias: " + e.getMessage());
         } finally {
             BancoFactory.fechaBanco();
         }

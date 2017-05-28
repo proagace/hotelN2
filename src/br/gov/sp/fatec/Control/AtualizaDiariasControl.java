@@ -8,7 +8,7 @@ package br.gov.sp.fatec.Control;
 import br.gov.sp.fatec.Model.Diarias;
 import br.gov.sp.fatec.Model.Cadastro;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
-import br.gov.sp.fatec.ServicosTecnicos.Persistencia.CadastroDAO;
+import br.gov.sp.fatec.ServicosTecnicos.Persistencia.CadastroViewDAO;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @author Thiago
  */
 public class AtualizaDiariasControl {
-    private CadastroDAO daol = new CadastroDAO();
+    private CadastroViewDAO daol = new CadastroViewDAO();
     
     public void atualizar() {
         try {
@@ -28,7 +28,7 @@ public class AtualizaDiariasControl {
             if (temp != null)
                 for (Cadastro locacao : temp) {
                     locacao.setVlrDiarias(TimeUnit.DAYS.convert((now.getTime() - locacao.getDataCriacao().getTime()), TimeUnit.MILLISECONDS) * locacao.getVlrDiaria());
-                    locacao.setDataAtualizacao((java.sql.Date) now);
+                    locacao.setDataAtualizacao(new java.sql.Date(now.getTime()));
                     daol.atualizar(locacao);
                 }
         } catch (SQLException ex) {
