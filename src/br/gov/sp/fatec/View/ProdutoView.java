@@ -19,22 +19,22 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  *
  * @author Thiago
  */
-public class Test extends javax.swing.JInternalFrame {
+public class ProdutoView extends javax.swing.JInternalFrame {
     public static DefaultListModel<ItemMenu> model = new DefaultListModel<>();
-    private static Test window;
+    private static ProdutoView window;
     /**
      * Creates new form Test
      */
     
-    public static Test getInstance() {
+    public static ProdutoView getInstance() {
         if (window == null) {
-            window = new Test();
+            window = new ProdutoView();
             ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
         }
         return window;
     }
     
-    private Test() {
+    private ProdutoView() {
         initComponents();
     }
     

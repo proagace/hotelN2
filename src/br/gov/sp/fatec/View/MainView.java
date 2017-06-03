@@ -73,6 +73,8 @@ public class MainView extends javax.swing.JFrame {
         menuReserva = new javax.swing.JMenuItem();
         menuDiarias = new javax.swing.JMenu();
         pagamento = new javax.swing.JMenuItem();
+        menuConsulta = new javax.swing.JMenu();
+        Hospede = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Viotel");
@@ -165,6 +167,18 @@ public class MainView extends javax.swing.JFrame {
 
         jMenuBar1.add(menuDiarias);
 
+        menuConsulta.setText("Consulta");
+
+        Hospede.setText("Hóspedes");
+        Hospede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HospedeActionPerformed(evt);
+            }
+        });
+        menuConsulta.add(Hospede);
+
+        jMenuBar1.add(menuConsulta);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -204,7 +218,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
    
     private void test1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_test1ActionPerformed
-        abreForm(Test.getInstance());
+        abreForm(ProdutoView.getInstance());
     }//GEN-LAST:event_test1ActionPerformed
 
     private void pagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagamentoActionPerformed
@@ -227,6 +241,10 @@ public class MainView extends javax.swing.JFrame {
     private void menuReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReservaActionPerformed
         abreForm(ReservaView.getInstance());
     }//GEN-LAST:event_menuReservaActionPerformed
+
+    private void HospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HospedeActionPerformed
+        abreForm(ConsultaHospedeView.getInstance());
+    }//GEN-LAST:event_HospedeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,9 +316,11 @@ public class MainView extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Hospede;
     private javax.swing.JMenuBar jMenuBar1;
     private static javax.swing.JDesktopPane mainContainer;
     private javax.swing.JMenu menuCadastro;
+    private javax.swing.JMenu menuConsulta;
     private javax.swing.JMenu menuDiarias;
     private javax.swing.JMenuItem menuHospedes;
     private javax.swing.JMenuItem menuLocacao;

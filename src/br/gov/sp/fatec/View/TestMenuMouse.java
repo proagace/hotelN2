@@ -104,7 +104,7 @@ public class TestMenuMouse extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnProdutoActionPerformed
 
     private void btnConsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsumoActionPerformed
-        MainView.abreForm(Test.getInstance());
+        MainView.abreForm(ProdutoView.getInstance());
     }//GEN-LAST:event_btnConsumoActionPerformed
 
     private void btnQuitacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitacaoActionPerformed

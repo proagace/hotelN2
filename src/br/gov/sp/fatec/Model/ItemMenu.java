@@ -5,7 +5,7 @@
  */
 package br.gov.sp.fatec.Model;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
-import br.gov.sp.fatec.View.Test;
+import br.gov.sp.fatec.View.ProdutoView;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -69,7 +69,7 @@ public class ItemMenu extends JButton implements MouseMotionListener, MouseListe
         int targetw = getParent().getComponent(getParent().getComponentCount() -1).getWidth();
         int targeth = getParent().getComponent(getParent().getComponentCount() -1).getHeight();
         if (getLocation().x > target.x && getLocation().y > target.y && getLocation().x < (target.x + targetw) && getLocation().y < (target.y + targeth)) {
-            Test.model.addElement(this);
+            ProdutoView.model.addElement(this);
         }
         position = null;
         setLocation(origem);
