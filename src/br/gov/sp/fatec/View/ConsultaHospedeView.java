@@ -7,6 +7,9 @@ package br.gov.sp.fatec.View;
 
 import br.gov.sp.fatec.Control.ConsultaHospedeControl;
 import br.gov.sp.fatec.Model.Hospede;
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -139,7 +142,7 @@ public class ConsultaHospedeView extends javax.swing.JInternalFrame {
             data.add(hospede.getCpf());
             data.add(hospede.getNome());
             data.add(hospede.getTelefone());
-            data.add(hospede.getDataNasc());
+            data.add(new SimpleDateFormat("dd/MM/yyyy").format(hospede.getDataNasc()));
             data.add(hospede.getEmail());
             model.addRow(data);
         }
