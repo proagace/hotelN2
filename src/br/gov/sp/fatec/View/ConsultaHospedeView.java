@@ -7,12 +7,11 @@ package br.gov.sp.fatec.View;
 
 import br.gov.sp.fatec.Control.ConsultaHospedeControl;
 import br.gov.sp.fatec.Model.Hospede;
-import java.text.DateFormatSymbols;
+import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Vector;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,7 +30,6 @@ public class ConsultaHospedeView extends javax.swing.JInternalFrame {
             window = null;
         } 
             window = new ConsultaHospedeView();
-            ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
         return window;
     }
     
@@ -54,76 +52,79 @@ public class ConsultaHospedeView extends javax.swing.JInternalFrame {
         tbHospedes = new javax.swing.JTable();
 
         setClosable(true);
+        setTitle("Consulta de Hóspedes");
+        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + File.separator +
+            "images" + File.separator + "LogoSimple.png"));
 
-        jLabel1.setText("Nome do Hóspede:");
+    jLabel1.setText("Nome do Hóspede:");
 
-        txtSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchActionPerformed(evt);
-            }
-        });
+    txtSearch.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            txtSearchActionPerformed(evt);
+        }
+    });
 
-        tbHospedes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+    tbHospedes.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
 
-            },
-            new String [] {
-                "Id", "Cpf", "Nome", "Telefone", "DataNasc", "Email"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                true, false, false, false, true, false
-            };
+        },
+        new String [] {
+            "Id", "Cpf", "Nome", "Telefone", "DataNasc", "Email"
+        }
+    ) {
+        Class[] types = new Class [] {
+            java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+        };
+        boolean[] canEdit = new boolean [] {
+            true, false, false, false, true, false
+        };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tbHospedes.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tbHospedes);
-        if (tbHospedes.getColumnModel().getColumnCount() > 0) {
-            tbHospedes.getColumnModel().getColumn(0).setPreferredWidth(50);
-            tbHospedes.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tbHospedes.getColumnModel().getColumn(2).setPreferredWidth(150);
-            tbHospedes.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tbHospedes.getColumnModel().getColumn(4).setPreferredWidth(75);
-            tbHospedes.getColumnModel().getColumn(5).setPreferredWidth(150);
+        public Class getColumnClass(int columnIndex) {
+            return types [columnIndex];
         }
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 841, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSearch)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit [columnIndex];
+        }
+    });
+    tbHospedes.getTableHeader().setReorderingAllowed(false);
+    jScrollPane1.setViewportView(tbHospedes);
+    if (tbHospedes.getColumnModel().getColumnCount() > 0) {
+        tbHospedes.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbHospedes.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tbHospedes.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tbHospedes.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tbHospedes.getColumnModel().getColumn(4).setPreferredWidth(75);
+        tbHospedes.getColumnModel().getColumn(5).setPreferredWidth(150);
+    }
 
-        pack();
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 841, Short.MAX_VALUE)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jLabel1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txtSearch)))
+            .addContainerGap())
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addGap(3, 3, 3)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel1)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+            .addContainerGap())
+    );
+
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed

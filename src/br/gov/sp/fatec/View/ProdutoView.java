@@ -10,10 +10,11 @@ import br.gov.sp.fatec.Model.ItemMenu;
 import br.gov.sp.fatec.Model.Produto;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.awt.Point;
+import java.io.File;
 import java.sql.SQLException;
 import javax.swing.DefaultListModel;
 import java.util.*;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -29,7 +30,6 @@ public class ProdutoView extends javax.swing.JInternalFrame {
     public static ProdutoView getInstance() {
         if (window == null) {
             window = new ProdutoView();
-            ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
         }
         return window;
     }
@@ -53,43 +53,45 @@ public class ProdutoView extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Consumo");
-        setVisible(true);
-        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameActivated(evt);
-            }
-            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-            }
-        });
+        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + File.separator +
+            "images" + File.separator + "LogoSimple.png"));
+    setVisible(true);
+    addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+        public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            formInternalFrameActivated(evt);
+        }
+        public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+        }
+        public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+        }
+        public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+        }
+        public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+        }
+        public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+        }
+        public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+        }
+    });
 
-        pannelProdutos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+    pannelProdutos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jScrollPane1.setViewportView(list_pedidos);
+    jScrollPane1.setViewportView(list_pedidos);
 
-        pannelProdutos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 492, -1));
+    pannelProdutos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 492, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pannelProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pannelProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-        );
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(pannelProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(pannelProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+    );
 
-        pack();
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated

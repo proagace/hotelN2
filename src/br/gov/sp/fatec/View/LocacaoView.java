@@ -10,16 +10,12 @@ import br.gov.sp.fatec.Model.Cadastro;
 import br.gov.sp.fatec.Model.Hospede;
 import br.gov.sp.fatec.Model.Quarto;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
-import java.awt.Component;
-import java.text.ParseException;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.BadLocationException;
 
 /**
  *
@@ -40,7 +36,6 @@ public class LocacaoView extends javax.swing.JInternalFrame {
             window = null;
         } 
             window = new LocacaoView();
-            ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);
         return window;
     }
     
@@ -71,142 +66,144 @@ public class LocacaoView extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Locação");
-        setVisible(true);
+        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + File.separator +
+            "images" + File.separator + "LogoSimple.png"));
+    setVisible(true);
 
-        try {
-            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
+    try {
+        txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+    } catch (java.text.ParseException ex) {
+        ex.printStackTrace();
+    }
+    txtCpf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+    txtCpf.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+    txtCpf.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            txtCpfMouseClicked(evt);
         }
-        txtCpf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCpf.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
-        txtCpf.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtCpfMouseClicked(evt);
-            }
-        });
-        txtCpf.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtCpfPropertyChange(evt);
-            }
-        });
+    });
+    txtCpf.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        public void propertyChange(java.beans.PropertyChangeEvent evt) {
+            txtCpfPropertyChange(evt);
+        }
+    });
 
-        tableLocacao.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null}
-            },
-            new String [] {
-                "Quarto", "Tipo", "Vlr Diaria", "Check-In", "Check-Out"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, Date.class, Date.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true, true
-            };
+    tableLocacao.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+            {null, null, null, null}
+        },
+        new String [] {
+            "Quarto", "Tipo", "Vlr Diaria", "Check-In", "Check-Out"
+        }
+    ) {
+        Class[] types = new Class [] {
+            java.lang.Integer.class, java.lang.String.class, java.lang.String.class, Date.class, Date.class
+        };
+        boolean[] canEdit = new boolean [] {
+            false, false, false, true, true
+        };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tableLocacao.getTableHeader().setReorderingAllowed(false);
-        tableLocacao.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableLocacaoMouseClicked(evt);
-            }
-        });
-        tabComum.setViewportView(tableLocacao);
-
-        tabPane.addTab("Comum", tabComum);
-
-        tabReserva.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                tabReservaComponentShown(evt);
-            }
-        });
-
-        tableLocRes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Id", "Quarto", "Check-In", "Check-Out", "Seleção"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tableLocRes.getTableHeader().setReorderingAllowed(false);
-        tabReserva.setViewportView(tableLocRes);
-        if (tableLocRes.getColumnModel().getColumnCount() > 0) {
-            tableLocRes.getColumnModel().getColumn(0).setResizable(false);
-            tableLocRes.getColumnModel().getColumn(4).setResizable(false);
+        public Class getColumnClass(int columnIndex) {
+            return types [columnIndex];
         }
 
-        tabPane.addTab("Com reserva", tabReserva);
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit [columnIndex];
+        }
+    });
+    tableLocacao.getTableHeader().setReorderingAllowed(false);
+    tableLocacao.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            tableLocacaoMouseClicked(evt);
+        }
+    });
+    tabComum.setViewportView(tableLocacao);
 
-        btnOkComum.setText("Confirmar");
-        btnOkComum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOkComumActionPerformed(evt);
-            }
-        });
+    tabPane.addTab("Comum", tabComum);
 
-        jLabel1.setText("Cpf do Hóspede: ");
+    tabReserva.addComponentListener(new java.awt.event.ComponentAdapter() {
+        public void componentShown(java.awt.event.ComponentEvent evt) {
+            tabReservaComponentShown(evt);
+        }
+    });
 
-        lblInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações do Hóspede", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 12))); // NOI18N
+    tableLocRes.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnOkComum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabPane)
-                    .addComponent(lblInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(219, 219, 219)
+        },
+        new String [] {
+            "Id", "Quarto", "Check-In", "Check-Out", "Seleção"
+        }
+    ) {
+        Class[] types = new Class [] {
+            java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+        };
+        boolean[] canEdit = new boolean [] {
+            false, false, false, false, true
+        };
+
+        public Class getColumnClass(int columnIndex) {
+            return types [columnIndex];
+        }
+
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit [columnIndex];
+        }
+    });
+    tableLocRes.getTableHeader().setReorderingAllowed(false);
+    tabReserva.setViewportView(tableLocRes);
+    if (tableLocRes.getColumnModel().getColumnCount() > 0) {
+        tableLocRes.getColumnModel().getColumn(0).setResizable(false);
+        tableLocRes.getColumnModel().getColumn(4).setResizable(false);
+    }
+
+    tabPane.addTab("Com reserva", tabReserva);
+
+    btnOkComum.setText("Confirmar");
+    btnOkComum.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnOkComumActionPerformed(evt);
+        }
+    });
+
+    jLabel1.setText("Cpf do Hóspede: ");
+
+    lblInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações do Hóspede", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 12))); // NOI18N
+
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(btnOkComum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addGroup(layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(tabPane)
+                .addComponent(lblInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap())
+        .addGroup(layout.createSequentialGroup()
+            .addGap(219, 219, 219)
+            .addComponent(jLabel1)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(274, Short.MAX_VALUE))
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(274, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(tabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnOkComum))
-        );
+                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(lblInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+            .addComponent(tabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(btnOkComum))
+    );
 
-        pack();
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
     public void preencherComum(){

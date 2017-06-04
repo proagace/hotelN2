@@ -3,8 +3,9 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
-    <Property name="iconifiable" type="boolean" value="true"/>
-    <Property name="maximizable" type="boolean" value="true"/>
+    <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+      <Connection code="new ImageIcon(System.getProperty(&quot;user.dir&quot;) + File.separator +&#xa;            &quot;images&quot; + File.separator + &quot;LogoSimple.png&quot;)" type="code"/>
+    </Property>
     <Property name="visible" type="boolean" value="true"/>
   </Properties>
   <SyntheticProperties>

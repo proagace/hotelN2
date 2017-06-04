@@ -7,9 +7,7 @@ package br.gov.sp.fatec.View;
 
 import br.gov.sp.fatec.Control.AtualizaDiariasControl;
 import br.gov.sp.fatec.Model.Usuario;
-import br.gov.sp.fatec.ServicosTecnicos.Persistencia.BancoFactory;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -18,12 +16,9 @@ import java.beans.PropertyVetoException;
 import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -51,9 +46,8 @@ public class MainView extends javax.swing.JFrame {
     private void initComponents() {
 
         mainContainer = new javax.swing.JDesktopPane(){
-            ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + File.separator +
-                "images" + File.separator + "background.jpg");
-            Image newimage = icon.getImage();
+            Image newimage = new ImageIcon(System.getProperty("user.dir") + File.separator +
+                "images" + File.separator + "background.png").getImage();
             //resize
             //Image newimage = image.getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);
             @Override
@@ -78,121 +72,123 @@ public class MainView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Viotel");
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
+        setIconImage(new ImageIcon(System.getProperty("user.dir") + File.separator +
+            "images" + File.separator + "LogoSimple.png").getImage());
+    addWindowListener(new java.awt.event.WindowAdapter() {
+        public void windowOpened(java.awt.event.WindowEvent evt) {
+            formWindowOpened(evt);
+        }
+    });
 
-        mainContainer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mainContainerMouseClicked(evt);
-            }
-        });
+    mainContainer.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            mainContainerMouseClicked(evt);
+        }
+    });
 
-        javax.swing.GroupLayout mainContainerLayout = new javax.swing.GroupLayout(mainContainer);
-        mainContainer.setLayout(mainContainerLayout);
-        mainContainerLayout.setHorizontalGroup(
-            mainContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 776, Short.MAX_VALUE)
-        );
-        mainContainerLayout.setVerticalGroup(
-            mainContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 491, Short.MAX_VALUE)
-        );
+    javax.swing.GroupLayout mainContainerLayout = new javax.swing.GroupLayout(mainContainer);
+    mainContainer.setLayout(mainContainerLayout);
+    mainContainerLayout.setHorizontalGroup(
+        mainContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGap(0, 776, Short.MAX_VALUE)
+    );
+    mainContainerLayout.setVerticalGroup(
+        mainContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGap(0, 491, Short.MAX_VALUE)
+    );
 
-        menuCadastro.setMnemonic('c');
-        menuCadastro.setText("Cadastro");
+    menuCadastro.setMnemonic('c');
+    menuCadastro.setText("Cadastro");
 
-        menuProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        menuProdutos.setText("Produtos");
-        menuProdutos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuProdutosActionPerformed(evt);
-            }
-        });
-        menuCadastro.add(menuProdutos);
+    menuProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+    menuProdutos.setText("Produtos");
+    menuProdutos.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            menuProdutosActionPerformed(evt);
+        }
+    });
+    menuCadastro.add(menuProdutos);
 
-        menuHospedes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
-        menuHospedes.setText("Hóspedes");
-        menuHospedes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuHospedesActionPerformed(evt);
-            }
-        });
-        menuCadastro.add(menuHospedes);
+    menuHospedes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
+    menuHospedes.setText("Hóspedes");
+    menuHospedes.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            menuHospedesActionPerformed(evt);
+        }
+    });
+    menuCadastro.add(menuHospedes);
 
-        jMenuBar1.add(menuCadastro);
+    jMenuBar1.add(menuCadastro);
 
-        menuTeste.setMnemonic('t');
-        menuTeste.setText("Teste");
+    menuTeste.setMnemonic('t');
+    menuTeste.setText("Teste");
 
-        test1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK));
-        test1.setText("TesteProdutos");
-        test1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                test1ActionPerformed(evt);
-            }
-        });
-        menuTeste.add(test1);
+    test1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK));
+    test1.setText("TesteProdutos");
+    test1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            test1ActionPerformed(evt);
+        }
+    });
+    menuTeste.add(test1);
 
-        menuLocacao.setText("Locação");
-        menuLocacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuLocacaoActionPerformed(evt);
-            }
-        });
-        menuTeste.add(menuLocacao);
+    menuLocacao.setText("Locação");
+    menuLocacao.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            menuLocacaoActionPerformed(evt);
+        }
+    });
+    menuTeste.add(menuLocacao);
 
-        menuReserva.setText("Reserva");
-        menuReserva.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuReservaActionPerformed(evt);
-            }
-        });
-        menuTeste.add(menuReserva);
+    menuReserva.setText("Reserva");
+    menuReserva.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            menuReservaActionPerformed(evt);
+        }
+    });
+    menuTeste.add(menuReserva);
 
-        jMenuBar1.add(menuTeste);
+    jMenuBar1.add(menuTeste);
 
-        menuDiarias.setMnemonic('d');
-        menuDiarias.setText("Diárias");
+    menuDiarias.setMnemonic('d');
+    menuDiarias.setText("Diárias");
 
-        pagamento.setText("Pagamento");
-        pagamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pagamentoActionPerformed(evt);
-            }
-        });
-        menuDiarias.add(pagamento);
+    pagamento.setText("Pagamento");
+    pagamento.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            pagamentoActionPerformed(evt);
+        }
+    });
+    menuDiarias.add(pagamento);
 
-        jMenuBar1.add(menuDiarias);
+    jMenuBar1.add(menuDiarias);
 
-        menuConsulta.setText("Consulta");
+    menuConsulta.setText("Consulta");
 
-        Hospede.setText("Hóspedes");
-        Hospede.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HospedeActionPerformed(evt);
-            }
-        });
-        menuConsulta.add(Hospede);
+    Hospede.setText("Hóspedes");
+    Hospede.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            HospedeActionPerformed(evt);
+        }
+    });
+    menuConsulta.add(Hospede);
 
-        jMenuBar1.add(menuConsulta);
+    jMenuBar1.add(menuConsulta);
 
-        setJMenuBar(jMenuBar1);
+    setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainContainer)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainContainer)
-        );
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(mainContainer)
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(mainContainer)
+    );
 
-        pack();
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuProdutosActionPerformed
