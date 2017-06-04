@@ -7,6 +7,7 @@ package br.gov.sp.fatec.View;
 
 import br.gov.sp.fatec.Control.NotificacaoControl;
 import br.gov.sp.fatec.Model.Diarias;
+import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 import javax.swing.JComponent;
@@ -124,20 +125,24 @@ public class NotificacaoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formMouseExited
 
     public static void preencherTable() {
-        NotificacaoControl control = new NotificacaoControl();
-        model = (DefaultTableModel) tbNotificacoes.getModel();
-        Vector col;
-        model.getDataVector().clear();
-        java.util.List<Diarias> tabela = control.listar();
-        if (tabela == null) {
-            return;
-        }
-        for (Diarias diarias : tabela) {
-            col = new Vector();
-            col.add(diarias.getIdLocacao());
-            col.add(diarias.getAtualizacao());
-            col.add(diarias.getTotal());
-            model.addRow(col);
+        try {
+            NotificacaoControl control = new NotificacaoControl();
+            model = (DefaultTableModel) tbNotificacoes.getModel();
+            Vector col;
+            model.getDataVector().clear();
+            java.util.List<Diarias> tabela = control.listar();
+            if (tabela == null) {
+                return;
+            }
+            for (Diarias diarias : tabela) {
+                col = new Vector();
+                col.add(diarias.getIdLocacao());
+                col.add(diarias.getAtualizacao());
+                col.add(diarias.getTotal());
+                model.addRow(col);
+            }
+        } catch (NullPointerException ex) {
+            Messages.showError("Erro de notificação.");
         }
     }
     

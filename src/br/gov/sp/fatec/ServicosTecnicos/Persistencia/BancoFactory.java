@@ -48,13 +48,15 @@ public class BancoFactory {
             Messages.showError("Driver não encontrado: " + e.getMessage());
         } catch (SQLException e) {
             Messages.showError("Erro de conexão no banco: " + e.getMessage());
+            System.exit(0);
         }
         return conexao;
     }
     
     public static void fechaBanco() {
         try {
-            conexao.close();
+            if (conexao != null)
+                conexao.close();
         } catch (SQLException ex) {
             Messages.showError("Erro ao fechar o banco: " + ex.getMessage());
         }

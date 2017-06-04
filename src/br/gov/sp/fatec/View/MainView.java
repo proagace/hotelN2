@@ -71,7 +71,7 @@ public class MainView extends javax.swing.JFrame {
         Hospede = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Viotel");
+        setTitle("VendraHotel");
         setIconImage(new ImageIcon(System.getProperty("user.dir") + File.separator +
             "images" + File.separator + "LogoSimple.png").getImage());
     addWindowListener(new java.awt.event.WindowAdapter() {

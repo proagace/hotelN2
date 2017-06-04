@@ -79,8 +79,8 @@ public class CadastroViewDAO implements DAO<Cadastro> {
         String sql = "select * from viewCadastro ";
         if (criterio.length() > 0)
             sql += criterio;
-        pst = BancoFactory.abreBanco().prepareStatement(sql);
         try {
+            pst = BancoFactory.abreBanco().prepareStatement(sql);
             rs = pst.executeQuery();     
             while(rs.next()) {
                 aux.add(new Cadastro(rs.getInt("idCadastro"), 
