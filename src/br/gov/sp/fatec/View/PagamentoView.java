@@ -5,11 +5,22 @@
  */
 package br.gov.sp.fatec.View;
 
+import br.gov.sp.fatec.Control.CadastroControl;
 import br.gov.sp.fatec.Control.PagamentoControl;
+import br.gov.sp.fatec.Model.TotalConsumo;
 import br.gov.sp.fatec.Model.Diarias;
+import br.gov.sp.fatec.Model.Hospede;
+import br.gov.sp.fatec.Model.TotalServico;
+import br.gov.sp.fatec.ServicosTecnicos.Messages;
+import com.toedter.calendar.JDateChooser;
+import java.awt.Component;
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.Vector;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,7 +29,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PagamentoView extends javax.swing.JInternalFrame {
     private static PagamentoView window;
-    /**
+    private Hospede cliente;
+    private DefaultTableModel dmodel;
+    private DefaultTableModel cmodel;
+    private DefaultTableModel smodel;
+/**
      * Creates new form PagamentoView
      */
     
@@ -31,8 +46,10 @@ public class PagamentoView extends javax.swing.JInternalFrame {
         return window;
     }
     
-    private PagamentoView() {
+    PagamentoView() {
         initComponents();
+        togglePanes(false);
+      
     }
 
     /**
@@ -46,9 +63,17 @@ public class PagamentoView extends javax.swing.JInternalFrame {
 
         txtCpf = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbConsulta = new javax.swing.JTable();
+        tbDiaria = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        lblInfo = new javax.swing.JLabel();
+        btnConfirma = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbConsumo = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbServico = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Pagamentos");
@@ -74,19 +99,19 @@ public class PagamentoView extends javax.swing.JInternalFrame {
         }
     });
 
-    tbConsulta.setModel(new javax.swing.table.DefaultTableModel(
+    tbDiaria.setModel(new javax.swing.table.DefaultTableModel(
         new Object [][] {
 
         },
         new String [] {
-            "Cod Locação", "Ultima atualização", "Total R$"
+            "Código da Locação", "Útilma Atualização", "Total R$", "Seleção"
         }
     ) {
         Class[] types = new Class [] {
-            java.lang.Integer.class, java.util.Date.class, java.lang.Float.class
+            java.lang.Integer.class, java.util.Date.class, java.lang.Float.class, java.lang.Boolean.class
         };
         boolean[] canEdit = new boolean [] {
-            false, false, false
+            false, false, false, true
         };
 
         public Class getColumnClass(int columnIndex) {
@@ -97,63 +122,206 @@ public class PagamentoView extends javax.swing.JInternalFrame {
             return canEdit [columnIndex];
         }
     });
-    tbConsulta.getTableHeader().setReorderingAllowed(false);
-    jScrollPane1.setViewportView(tbConsulta);
+    tbDiaria.getTableHeader().setReorderingAllowed(false);
+    jScrollPane1.setViewportView(tbDiaria);
 
     jLabel1.setText("Cpf do Hóspede: ");
 
     jLabel2.setText("Diárias:");
 
+    lblInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações do Hóspede", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 12))); // NOI18N
+
+    btnConfirma.setText("Realizar Pagamento");
+    btnConfirma.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnConfirmaActionPerformed(evt);
+        }
+    });
+
+    tbConsumo.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+            "Código da Locação", "Total R$", "Seleção"
+        }
+    ) {
+        Class[] types = new Class [] {
+            java.lang.Integer.class, java.lang.Float.class, java.lang.Boolean.class
+        };
+        boolean[] canEdit = new boolean [] {
+            false, false, true
+        };
+
+        public Class getColumnClass(int columnIndex) {
+            return types [columnIndex];
+        }
+
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit [columnIndex];
+        }
+    });
+    tbConsumo.getTableHeader().setReorderingAllowed(false);
+    jScrollPane2.setViewportView(tbConsumo);
+
+    tbServico.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+            "Código da Locação", "Total R$", "Seleção"
+        }
+    ) {
+        Class[] types = new Class [] {
+            java.lang.Integer.class, java.lang.Float.class, java.lang.Boolean.class
+        };
+        boolean[] canEdit = new boolean [] {
+            false, false, true
+        };
+
+        public Class getColumnClass(int columnIndex) {
+            return types [columnIndex];
+        }
+
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit [columnIndex];
+        }
+    });
+    tbServico.getTableHeader().setReorderingAllowed(false);
+    jScrollPane3.setViewportView(tbServico);
+
+    jLabel3.setText("Serviços");
+
+    jLabel4.setText("Consumo");
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(lblInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addGroup(layout.createSequentialGroup()
-            .addContainerGap()
+            .addComponent(jLabel2)
+            .addGap(0, 0, Short.MAX_VALUE))
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+        .addComponent(jScrollPane2)
+        .addComponent(jScrollPane3)
+        .addGroup(layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
                 .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel2))
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addContainerGap())
+                    .addGap(192, 192, 192)
+                    .addComponent(jLabel1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel3))
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel4)))
+            .addContainerGap(287, Short.MAX_VALUE))
+        .addComponent(btnConfirma, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addContainerGap()
+            .addContainerGap(18, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel1)
                 .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(22, 22, 22)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(lblInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
             .addComponent(jLabel2)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(130, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(jLabel3)
+            .addGap(1, 1, 1)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
+            .addComponent(jLabel4)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(btnConfirma))
     );
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void togglePanes(boolean state) {
+        tbDiaria.setEnabled(state);
+//        for (Component component : paneCartao.getComponents()) {
+//            if(component instanceof JTextField)
+//                ((JTextField)component).setEnabled(state);
+//            if(component instanceof JFormattedTextField)
+//                ((JFormattedTextField)component).setEnabled(state);
+//            if(component instanceof JComboBox)
+//                ((JComboBox)component).setEnabled(state);
+//            if(component instanceof JDateChooser)
+//                ((JDateChooser)component).setEnabled(state);            
+//        }
+       btnConfirma.setEnabled(state);
+    }
     private void txtCpfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCpfMouseClicked
-        txtCpf.setText(null);
+        txtCpf.setText("");
+        txtCpf.setValue(null);
+        lblInfo.setText("");
+        if (dmodel != null)
+                dmodel.getDataVector().clear();  
+        if(smodel != null)
+            smodel.setRowCount(0);
+        if(cmodel != null)
+            cmodel.setRowCount(0);
+        togglePanes(false);
     }//GEN-LAST:event_txtCpfMouseClicked
 
     private void txtCpfPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtCpfPropertyChange
-        if (txtCpf.getText().contains(" "))
+  
+        if (txtCpf.getText().contains(" ")) 
             return;
-        preencherTable();
+        CadastroControl control = new CadastroControl();
+        cliente = control.verificaHospede(new Hospede(txtCpf.getText()));
+        if (cliente == null) {
+            Messages.showInformation("Hóspede não cadastrado!");
+            return;
+        }
+        preencherDiarias();
+        preencherConsumo();
+        preencherServico();
+        lblInfo.setText(cliente.toString());
+        togglePanes(true);
     }//GEN-LAST:event_txtCpfPropertyChange
+
+    private void btnConfirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmaActionPerformed
+        boolean selected = false;
+        
+        for (int i = 0; i < tbDiaria.getRowCount(); i++) {
+            if(tbDiaria.getValueAt(i, 3) != null && ((boolean)tbDiaria.getValueAt(i, 3)) == true)
+                selected = true;
+         }
+        for (int i = 0; i < tbServico.getRowCount(); i++) {
+            if(tbServico.getValueAt(i, 2) != null && ((boolean)tbServico.getValueAt(i, 2)) == true)
+                selected = true;                
+         }
+        for (int i = 0; i < tbConsumo.getRowCount(); i++) {
+            if(tbConsumo.getValueAt(i, 2) != null && ((boolean)tbConsumo.getValueAt(i, 2)) == true) 
+                selected = true;
+         }
+        if (selected)
+            MainView.abreForm(new CartaoView(tbDiaria, tbServico, tbConsumo));
+        else
+            Messages.showError("Selecione ao menos uma conta a ser paga");        
+    }//GEN-LAST:event_btnConfirmaActionPerformed
+
+
     
-    private void preencherTable() {
-        DefaultTableModel model = (DefaultTableModel) tbConsulta.getModel();
+        
+    public void preencherDiarias() {
+        dmodel = (DefaultTableModel) tbDiaria.getModel();
         PagamentoControl control = new PagamentoControl();
         Vector col;
-        model.getDataVector().clear();
+        dmodel.getDataVector().clear();
         java.util.List<Diarias> tabela = control.listar(txtCpf.getText());
         if (tabela == null) {
             txtCpf.setText(null);
@@ -164,15 +332,50 @@ public class PagamentoView extends javax.swing.JInternalFrame {
             col.add(diarias.getIdLocacao());
             col.add(diarias.getAtualizacao());
             col.add(diarias.getTotal());
-            model.addRow(col);
+            dmodel.addRow(col);
         }
     }
     
+    public void preencherServico(){
+        smodel = (DefaultTableModel) tbServico.getModel();
+        smodel.setRowCount(0);
+        PagamentoControl control = new PagamentoControl();
+        
+        for (TotalServico servico : control.listaServico(txtCpf.getText())) {
+            smodel.addRow(new Object[]{
+                servico.getIdCadastro(),
+                servico.getTotal()
+            });
+        }
+    }
+ 
+    public void preencherConsumo(){
+        cmodel = (DefaultTableModel) tbConsumo.getModel();
+        cmodel.setRowCount(0);
+        PagamentoControl control = new PagamentoControl();
+        
+        for (TotalConsumo consumo : control.listaConsumo(txtCpf.getText())) {
+            cmodel.addRow(new Object[]{
+                consumo.getIdCadastro(),
+                consumo.getTotal()
+            });
+        }       
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirma;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbConsulta;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblInfo;
+    private javax.swing.JTable tbConsumo;
+    private javax.swing.JTable tbDiaria;
+    private javax.swing.JTable tbServico;
     private javax.swing.JFormattedTextField txtCpf;
     // End of variables declaration//GEN-END:variables
 }

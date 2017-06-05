@@ -264,12 +264,15 @@ public class LocacaoView extends javax.swing.JInternalFrame {
             if (temp != null)
                 tableLocacao.setValueAt(null, row, 4);
             MainView.abreForm(DatePick.getInstance(tableLocacao, row, col, new Date()));
+            
         }
     }//GEN-LAST:event_tableLocacaoMouseClicked
 
     private void btnOkComumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkComumActionPerformed
         CadastroControl control = new CadastroControl();
         boolean selected = false;
+        
+        //Locação Comum
         if(tabPane.getSelectedIndex() == 0) {
             for (int i = 0; i < tableLocacao.getRowCount(); i++) {
                 if (tableLocacao.getValueAt(i, 4) != null) {
@@ -278,14 +281,13 @@ public class LocacaoView extends javax.swing.JInternalFrame {
                             cliente.getIdHospede(),
                             new java.sql.Date(((Date) tableLocacao.getValueAt(i, 3)).getTime()), 
                             new java.sql.Date(((Date) tableLocacao.getValueAt(i, 4)).getTime()),
-                            MainView.funcionarioLogado.getId(),
-                            "Locacao");
+                            MainView.funcionarioLogado.getId(),"Locacao");
                             selected = true;
                             
                 }
             }
             preencherComum();
-        } else {
+        } else { // Locação por Reserva
             for (int i = 0; i < tableLocRes.getRowCount(); i++) {
                 if(tableLocRes.getValueAt(i, 4) != null && ((boolean)tableLocRes.getValueAt(i, 4)) == true) {
                     control.realizarLocacaoReserva(new Cadastro((Integer) tableLocRes.getValueAt(i, 0), "Locacao"));
@@ -295,7 +297,7 @@ public class LocacaoView extends javax.swing.JInternalFrame {
             preencherReserva();
         }
             if(selected)
-                Messages.showInformation("Locações realizadas!");
+                Messages.showInformation("Locação realizada!");
             else
                 Messages.showError("Selecione ao menos um quarto!");
     }//GEN-LAST:event_btnOkComumActionPerformed

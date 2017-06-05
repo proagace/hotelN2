@@ -31,7 +31,7 @@ public class NotificacaoControl {
     
     public List<Diarias> listar() {
         try {
-            return daod.listar("where DATEDIFF(now(), dataCriacao) >= 7");
+            return daod.listar("where DATEDIFF(now(), dataCriacao) >= 7 and pagoDiaria=0");
         } catch (SQLException ex) {
             Messages.showError("Erro ao listar diarias: " + ex.getMessage());
         }

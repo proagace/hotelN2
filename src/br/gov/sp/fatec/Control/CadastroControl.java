@@ -28,7 +28,7 @@ public class CadastroControl {
     public List<Quarto> listarQuartos() {
         QuartoDAO daoq = new QuartoDAO();
         try {
-            return daoq.listar("disponibilidade = 1");
+            return daoq.listar("");
         } catch (SQLException ex) {
             Messages.showError("Erro ao listar quartos: " + ex.getMessage());
         }
@@ -46,7 +46,7 @@ public class CadastroControl {
     }
     
     public boolean realizarCadastro(int numQuarto, int idHospede,  Date dataCheckIn, 
-            Date dataCheckOut, int idFuncionario, String tipoCadastro) {
+        Date dataCheckOut, int idFuncionario, String tipoCadastro) {
         CadastroDAO daoc = new CadastroDAO();
         QuartoDAO daoq = new QuartoDAO();
         try {
@@ -82,10 +82,15 @@ public class CadastroControl {
         return null;
     }
     
-    public boolean cancelaReserva(Cadastro obj){
+    public boolean cancelaReserva(Cadastro obj, int numQuarto){
         CadastroDAO daoc = new CadastroDAO();
         DiariasDAO daod = new DiariasDAO();
+        QuartoDAO daoq= new QuartoDAO();
         try {
+            //daoq.buscar(item)
+            Quarto quarto = daoq.buscar(new Quarto(numQuarto));
+            quarto.setDisponivel(true);
+            daoq.atualizar(quarto);            
             return (daod.remover(new Diarias(obj.getId())) && daoc.remover(obj));
         } catch (SQLException ex) {
             Messages.showError("Erro ao cancelar a reserva: " + ex.getMessage());

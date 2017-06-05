@@ -39,7 +39,7 @@ public class ReservaView extends javax.swing.JInternalFrame {
             window = new ReservaView();
         return window;
     }    
-    
+
     public ReservaView() {
         initComponents();
         preencherTbQuarto();
@@ -61,10 +61,11 @@ public class ReservaView extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableQuarto = new javax.swing.JTable();
         tabReserva = new javax.swing.JScrollPane();
-        tableLocRes = new javax.swing.JTable();
+        tableCancel = new javax.swing.JTable();
         txtCpf = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         btnReserva = new javax.swing.JButton();
+        lblInfo = new javax.swing.JLabel();
 
         setClosable(true);
         setFrameIcon(new ImageIcon(System.getProperty("user.dir") + File.separator +
@@ -106,16 +107,16 @@ public class ReservaView extends javax.swing.JInternalFrame {
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGap(31, 31, 31)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap())
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     jPanel1Layout.setVerticalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanel1Layout.createSequentialGroup()
             .addContainerGap()
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
             .addContainerGap())
     );
 
@@ -127,7 +128,7 @@ public class ReservaView extends javax.swing.JInternalFrame {
         }
     });
 
-    tableLocRes.setModel(new javax.swing.table.DefaultTableModel(
+    tableCancel.setModel(new javax.swing.table.DefaultTableModel(
         new Object [][] {
 
         },
@@ -150,8 +151,8 @@ public class ReservaView extends javax.swing.JInternalFrame {
             return canEdit [columnIndex];
         }
     });
-    tableLocRes.getTableHeader().setReorderingAllowed(false);
-    tabReserva.setViewportView(tableLocRes);
+    tableCancel.getTableHeader().setReorderingAllowed(false);
+    tabReserva.setViewportView(tableCancel);
 
     tabCadastro.addTab("Cancelamento", tabReserva);
 
@@ -181,21 +182,26 @@ public class ReservaView extends javax.swing.JInternalFrame {
         }
     });
 
+    lblInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações do Hóspede", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 12))); // NOI18N
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(btnReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addContainerGap())
+        .addGroup(layout.createSequentialGroup()
             .addGap(143, 143, 143)
             .addComponent(jLabel4)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 0, Short.MAX_VALUE))
+        .addComponent(lblInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addGroup(layout.createSequentialGroup()
             .addContainerGap()
-            .addComponent(btnReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addContainerGap())
-        .addComponent(tabCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+            .addComponent(tabCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,9 +210,11 @@ public class ReservaView extends javax.swing.JInternalFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel4)
                 .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tabCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(lblInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(tabCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addContainerGap())
     );
@@ -215,9 +223,13 @@ public class ReservaView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void limparCampos(){
-        txtCpf.setText(null);
-
+        txtCpf.setText("");
+        txtCpf.setValue(null);
+        lblInfo.setText("");
         tableQuarto.getSelectionModel().clearSelection();
+        if (modelReserva != null)
+                modelReserva.getDataVector().clear();        
+        togglePanes(false);
     }
     
     private void txtCpfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCpfMouseClicked
@@ -240,7 +252,9 @@ public class ReservaView extends javax.swing.JInternalFrame {
             Messages.showInformation("Hóspede não cadastrado!");
             return;
         }
+        lblInfo.setText(cliente.toString());
         togglePanes(true);
+        
     }//GEN-LAST:event_txtCpfPropertyChange
 
     private void btnReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservaActionPerformed
@@ -248,6 +262,7 @@ public class ReservaView extends javax.swing.JInternalFrame {
         tipoCadastro = "Reserva";
         boolean selection = false;
         
+        //
         if(tabCadastro.getSelectedIndex() == 0){
             for (int linha = 0; linha < tableQuarto.getRowCount(); linha++) {
                 if(tableQuarto.getValueAt(linha, 4) != null){
@@ -255,23 +270,23 @@ public class ReservaView extends javax.swing.JInternalFrame {
                     java.sql.Date checkIn = new java.sql.Date(((Date)tableQuarto.getValueAt(linha, 3)).getTime());
                     java.sql.Date checkOut = new java.sql.Date(((Date)tableQuarto.getValueAt(linha, 4)).getTime());
                     control.realizarCadastro(Integer.parseInt(numQuarto), cliente.getIdHospede(), checkIn, checkOut, MainView.funcionarioLogado.getId(), tipoCadastro);
+                    Messages.showInformation("Reserva realizada.");
                     selection = true;
                 }
             }
-        }else{
-            for (int i = 0; i < tableLocRes.getRowCount(); i++) {
-                if(tableLocRes.getValueAt(i, 4) != null && ((boolean)tableLocRes.getValueAt(i, 4)) == true) {
-                    control.cancelaReserva(new Cadastro((Integer) tableLocRes.getValueAt(i, 0)));
+            preencherReserva();
+        }else{ //Cancelamento
+            for (int i = 0; i < tableCancel.getRowCount(); i++) {
+                if(tableCancel.getValueAt(i, 4) != null && ((boolean)tableCancel.getValueAt(i, 4)) == true) {
+                    control.cancelaReserva(new Cadastro((Integer) tableCancel.getValueAt(i, 0)), ((int)tableCancel.getValueAt(i, 1)));
+                    Messages.showInformation("Cancelamento realizado.");                    
                     selection = true;
                 }
             }            
-        }
-        if(selection){
-            Messages.showInformation("Reserva realizada.");
-            limparCampos();
             preencherTbQuarto();
-        }else
-        Messages.showError("Selecione pelo menos um quarto");
+        }
+        if(!selection)
+            Messages.showError("Selecione pelo menos um quarto");
     }//GEN-LAST:event_btnReservaActionPerformed
 
     private void tableQuartoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableQuartoMouseClicked
@@ -281,7 +296,7 @@ public class ReservaView extends javax.swing.JInternalFrame {
             if(tableQuarto.getColumnName(col).equals("Data Check-In")){
                 Object temp = tableQuarto.getValueAt(row, col + 1);
                 if (temp != null)
-                tableQuarto.setValueAt(null, row, col + 1);
+                    tableQuarto.setValueAt(null, row, col + 1);
                 MainView.abreForm(new DatePick(tableQuarto, row, col, new Date()));
             }
             if(tableQuarto.getColumnName(col).equals("Data Check-Out")){
@@ -296,7 +311,7 @@ public class ReservaView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tableQuartoMouseClicked
 
     public void preencherReserva(){
-        modelReserva = (DefaultTableModel) tableLocRes.getModel();
+        modelReserva = (DefaultTableModel) tableCancel.getModel();
         modelReserva.getDataVector().clear();
         CadastroControl control = new CadastroControl();
         //"Quarto", "Tipo", "Vlr Diaria", "Check-In", "Check-Out"
@@ -323,17 +338,13 @@ public class ReservaView extends javax.swing.JInternalFrame {
     public void preencherTbQuarto(){
         DefaultTableModel tmodel = (DefaultTableModel) tableQuarto.getModel();
         
-        QuartoDAO dao = new QuartoDAO();
+        CadastroControl control = new CadastroControl();
         tmodel.setRowCount(0);
-        try {
-            for (Quarto quarto : dao.listar("")) {
-                tmodel.addRow(new Object[]{
-                        quarto.getNumQuarto(),
-                        quarto.getTipoQuarto(),
-                        quarto.getValorDiaria()});
-            }
-        } catch (SQLException ex) {
-            Messages.showError("Erro ao listar quartos"+ex.getMessage());
+        for (Quarto quarto : control.listarQuartos()){
+            tmodel.addRow(new Object[]{
+                quarto.getNumQuarto(),
+                quarto.getTipoQuarto(),
+                quarto.getValorDiaria()});
         }
         tableQuarto.setAutoCreateRowSorter(true);
     }
@@ -345,9 +356,10 @@ public class ReservaView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblInfo;
     private javax.swing.JTabbedPane tabCadastro;
     private javax.swing.JScrollPane tabReserva;
-    private javax.swing.JTable tableLocRes;
+    private javax.swing.JTable tableCancel;
     private javax.swing.JTable tableQuarto;
     private javax.swing.JFormattedTextField txtCpf;
     // End of variables declaration//GEN-END:variables

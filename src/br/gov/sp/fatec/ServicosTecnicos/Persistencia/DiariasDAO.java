@@ -44,7 +44,7 @@ public class DiariasDAO implements DAO<Diarias> {
     @Override
     public Diarias buscar(Diarias item) throws SQLException {
         pst = BancoFactory.abreBanco().prepareStatement(
-                "select * from Diarias where idCadastro=?"
+                "select * from Diarias where idCadastro=? and pagoDiaria=0"
         );
         pst.setInt(1, item.getIdLocacao());
         try {
@@ -91,12 +91,20 @@ public class DiariasDAO implements DAO<Diarias> {
     @Override
     public boolean atualizar(Diarias item) throws SQLException {
         pst = BancoFactory.abreBanco().prepareStatement(
-                "update Diarias set dataAtualizacao = ?, vlrDiarias = ?"
+                "update Diarias set pagoDiaria=? where idCadastro=?"
         );
-        pst.setDate(1, new java.sql.Date(item.getAtualizacao().getTime()));
-        pst.setFloat(2, item.getTotal());
-        int rows = pst.executeUpdate();
-        return (rows > 0);
+        pst.setBoolean(1, item.isPago());
+        pst.setInt(2, item.getIdLocacao());
+        
+        try {
+            int rows = pst.executeUpdate();
+            return (rows > 0);
+        } catch (SQLException e) {
+            Messages.showError("Erro no banco: " + e.getMessage());
+        }finally{
+            BancoFactory.fechaBanco();
+        }
+        return false;
     }
     
 }
