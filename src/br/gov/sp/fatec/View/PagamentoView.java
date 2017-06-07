@@ -328,11 +328,13 @@ public class PagamentoView extends javax.swing.JInternalFrame {
             return;
         }
         for (Diarias diarias : tabela) {
-            col = new Vector();
-            col.add(diarias.getIdLocacao());
-            col.add(diarias.getAtualizacao());
-            col.add(diarias.getTotal());
-            dmodel.addRow(col);
+            if(diarias.getTotal() != 0) {
+                col = new Vector();
+                col.add(diarias.getIdLocacao());
+                col.add(diarias.getAtualizacao());
+                col.add(diarias.getTotal());
+                dmodel.addRow(col);
+            }
         }
     }
     

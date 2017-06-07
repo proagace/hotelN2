@@ -9,28 +9,37 @@ import br.gov.sp.fatec.ServicosTecnicos.Persistencia.ProdutoDAO;
 import br.gov.sp.fatec.Model.ItemMenu;
 import br.gov.sp.fatec.Model.Produto;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.io.File;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import javax.swing.DefaultListModel;
 import java.util.*;
+import javafx.scene.control.Spinner;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Thiago
  */
 public class ProdutoView extends javax.swing.JInternalFrame {
-    public static DefaultListModel<ItemMenu> model = new DefaultListModel<>();
+    public static DefaultTableModel model;
     private static ProdutoView window;
     /**
      * Creates new form Test
      */
     
     public static ProdutoView getInstance() {
-        if (window == null) {
+        if (window != null) {
+            window.dispose();
+            window = null;
+        } 
             window = new ProdutoView();
-        }
         return window;
     }
     
@@ -48,8 +57,10 @@ public class ProdutoView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         pannelProdutos = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        list_pedidos = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbConsumo = new javax.swing.JTable();
+        btnDel = new javax.swing.JButton();
+        btnOk = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Consumo");
@@ -76,26 +87,61 @@ public class ProdutoView extends javax.swing.JInternalFrame {
 
     pannelProdutos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-    jScrollPane1.setViewportView(list_pedidos);
+    tbConsumo.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
 
-    pannelProdutos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 492, -1));
+        },
+        new String [] {
+            "Produto", "Valor", "Quantidade", "Seleção"
+        }
+    ) {
+        Class[] types = new Class [] {
+            java.lang.Object.class, java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class
+        };
+        boolean[] canEdit = new boolean [] {
+            false, true, false, true
+        };
+
+        public Class getColumnClass(int columnIndex) {
+            return types [columnIndex];
+        }
+
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit [columnIndex];
+        }
+    });
+    tbConsumo.getTableHeader().setReorderingAllowed(false);
+    jScrollPane2.setViewportView(tbConsumo);
+
+    pannelProdutos.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 730, 230));
+
+    btnDel.setText("Excluir Item(s)");
+    btnDel.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnDelActionPerformed(evt);
+        }
+    });
+    pannelProdutos.add(btnDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 360, -1));
+
+    btnOk.setText("Comfirmar");
+    pannelProdutos.add(btnOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 470, 370, -1));
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(pannelProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+        .addComponent(pannelProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(pannelProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+        .addComponent(pannelProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        model.clear();
+        model = (DefaultTableModel) tbConsumo.getModel();
         ProdutoDAO canal = new ProdutoDAO();
         List<Produto> produtos = new ArrayList<>();
         int offset = 10;
@@ -105,16 +151,35 @@ public class ProdutoView extends javax.swing.JInternalFrame {
             Messages.showError("Erro ao listar produtos: " + ex.getMessage());
         }
         for (Produto produto : produtos) {
-            pannelProdutos.add(new ItemMenu(produto, new Point(offset, 20)), new org.netbeans.lib.awtextra.AbsoluteConstraints(offset, 20, -1, -1));
+            JSpinner numPick = new JSpinner();
+            numPick.setModel(new SpinnerNumberModel(1, 1, 99, 1));
+            pannelProdutos.add(numPick, new org.netbeans.lib.awtextra.AbsoluteConstraints(offset + 33, 103, 50, -1));
+            pannelProdutos.add(new ItemMenu(produto, new Point(offset, 20), numPick), new org.netbeans.lib.awtextra.AbsoluteConstraints(offset, 20, -1, -1));
+            pannelProdutos.add(new javax.swing.JLabel(NumberFormat.getCurrencyInstance().format(produto.getValor())), 
+                               new org.netbeans.lib.awtextra.AbsoluteConstraints(offset, 5, -1, -1));
             offset += 80;
         }
-        pannelProdutos.setComponentZOrder(jScrollPane1, pannelProdutos.getComponentCount() -1);
-        list_pedidos.setModel(model);
+        pannelProdutos.setComponentZOrder(jScrollPane2, pannelProdutos.getComponentCount() -1);
     }//GEN-LAST:event_formInternalFrameActivated
 
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        int result = JOptionPane.showConfirmDialog(null, "Excluir apenas items selecionados?", "Selecione uma opção", JOptionPane.YES_NO_CANCEL_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            for (int i = model.getRowCount() - 1; i >= 0 ; i--) {
+                if (tbConsumo.getValueAt(i, 3) != null && (boolean) tbConsumo.getValueAt(i, 3) == true)
+                    model.removeRow(i);
+            }
+        } else if (result == JOptionPane.NO_OPTION) {
+            model.getDataVector().clear();
+            model.fireTableDataChanged();
+        }
+    }//GEN-LAST:event_btnDelActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<ItemMenu> list_pedidos;
+    private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnOk;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel pannelProdutos;
+    private javax.swing.JTable tbConsumo;
     // End of variables declaration//GEN-END:variables
 }

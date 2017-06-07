@@ -12,8 +12,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
+import java.text.NumberFormat;
+import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JSpinner;
 
 /**
  *
@@ -24,8 +27,9 @@ public class ItemMenu extends JButton implements MouseMotionListener, MouseListe
     private int qtd, origx, origy;
     private Point position = null;
     private Point origem = null;
+    private JSpinner numPick;
     
-    public ItemMenu(Produto item, Point origem) {
+    public ItemMenu(Produto item, Point origem, JSpinner numPick) {
         super(new ImageIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "images" + File.separator + 
                                 item.getImagem()).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH)));
         addMouseMotionListener(this);
@@ -33,6 +37,7 @@ public class ItemMenu extends JButton implements MouseMotionListener, MouseListe
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         this.item = item;
         this.origem = origem;
+        this.numPick = numPick;
     }
     
     @Override
@@ -69,7 +74,11 @@ public class ItemMenu extends JButton implements MouseMotionListener, MouseListe
         int targetw = getParent().getComponent(getParent().getComponentCount() -1).getWidth();
         int targeth = getParent().getComponent(getParent().getComponentCount() -1).getHeight();
         if (getLocation().x > target.x && getLocation().y > target.y && getLocation().x < (target.x + targetw) && getLocation().y < (target.y + targeth)) {
-            ProdutoView.model.addElement(this);
+            Vector temp = new Vector();
+            temp.add(item.getDescricao());
+            temp.add(NumberFormat.getCurrencyInstance().format(item.getValor()));
+            temp.add(numPick.getValue());
+            ProdutoView.model.addRow(temp);
         }
         position = null;
         setLocation(origem);
