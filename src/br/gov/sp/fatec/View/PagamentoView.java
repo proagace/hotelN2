@@ -309,7 +309,7 @@ public class PagamentoView extends javax.swing.JInternalFrame {
                 selected = true;
          }
         if (selected)
-            MainView.abreForm(new CartaoView(tbDiaria, tbServico, tbConsumo));
+            MainView.abreForm(CartaoView.getInstance(tbDiaria, tbServico, tbConsumo));
         else
             Messages.showError("Selecione ao menos uma conta a ser paga");        
     }//GEN-LAST:event_btnConfirmaActionPerformed

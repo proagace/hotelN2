@@ -33,6 +33,7 @@ public class ItemMenu extends JButton implements MouseMotionListener, MouseListe
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         this.item = item;
         this.origem = origem;
+        
     }
     
     @Override
