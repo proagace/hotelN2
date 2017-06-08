@@ -7,7 +7,6 @@ package br.gov.sp.fatec.ServicosTecnicos.Persistencia;
 
 import br.gov.sp.fatec.Model.TotalConsumo;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
-import com.sun.prism.impl.Disposer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,7 +48,23 @@ public class TotalConsumoDAO implements DAO<TotalConsumo>{
 
     @Override
     public boolean adicionar(TotalConsumo item) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pst=BancoFactory.abreBanco().prepareStatement(
+                "insert into consumo values (null, ?, ?, ?, ?)");
+        
+        pst.setInt(1, item.getIdCadastro());
+        pst.setInt(2, item.getIdProduto());
+        pst.setInt(3, item.getQtdConsumo());
+        pst.setBoolean(4, item.isPago());
+        
+        try {
+            int rows = pst.executeUpdate();
+            return rows > 0;
+        } catch (SQLException e) {
+            Messages.showError("Erro ao executar inserção: " + e.getMessage());
+        }finally{
+            BancoFactory.fechaBanco();
+        }
+        return false;
     }
 
     @Override

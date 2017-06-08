@@ -11,6 +11,7 @@ import br.gov.sp.fatec.Model.Hospede;
 import br.gov.sp.fatec.Model.Quarto;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.io.File;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -93,7 +94,7 @@ public class LocacaoView extends javax.swing.JInternalFrame {
             {null, null, null, null}
         },
         new String [] {
-            "Quarto", "Tipo", "Vlr Diaria", "Check-In", "Check-Out"
+            "Quarto", "Tipo", "Valor da Diária", "Check-In", "Check-Out"
         }
     ) {
         Class[] types = new Class [] {
@@ -132,7 +133,7 @@ public class LocacaoView extends javax.swing.JInternalFrame {
 
         },
         new String [] {
-            "Id", "Quarto", "Check-In", "Check-Out", "Seleção"
+            "Código da Reserva", "Quarto", "Check-In", "Check-Out", "Seleção"
         }
     ) {
         Class[] types = new Class [] {
@@ -221,7 +222,7 @@ public class LocacaoView extends javax.swing.JInternalFrame {
             aux = new Vector();
             aux.add(quarto.getNumQuarto());
             aux.add(quarto.getTipoQuarto());
-            aux.add(quarto.getValorDiaria());
+            aux.add(NumberFormat.getCurrencyInstance().format(quarto.getValorDiaria()));
             model.addRow(aux);
         }
     }

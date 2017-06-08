@@ -11,9 +11,32 @@ package br.gov.sp.fatec.Model;
  */
 public class TotalConsumo {
 
-    private int idCadastro;
+    private int idCadastro, idProduto, qtdConsumo;
     private float total;
     private boolean pago;
+
+    public TotalConsumo(int idCadastro, int idProduto, int qtdConsumo, boolean pago) {
+        this.idCadastro = idCadastro;
+        this.idProduto = idProduto;
+        this.qtdConsumo = qtdConsumo;
+        this.pago = pago;
+    }
+
+    public int getIdProduto() {
+        return idProduto;
+    }
+
+    public void setIdProduto(int idProduto) {
+        this.idProduto = idProduto;
+    }
+
+    public int getQtdConsumo() {
+        return qtdConsumo;
+    }
+
+    public void setQtdConsumo(int qtdConsumo) {
+        this.qtdConsumo = qtdConsumo;
+    }
 
     public TotalConsumo() {
     }

@@ -6,6 +6,10 @@ import com.toedter.calendar.JDateChooser;
 import java.awt.Component;
 import java.io.File;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -40,7 +44,6 @@ public class CartaoView extends javax.swing.JInternalFrame {
             window = null;
         } 
             window = new CartaoView(tbDiaria, tbServico, tbConsumo);
-        ((BasicInternalFrameUI)window.getUI()).getNorthPane().remove(0);                
         return window;
     }
     public CartaoView(JTable tbDiaria, JTable tbServico, JTable tbConsumo){
@@ -255,20 +258,31 @@ public class CartaoView extends javax.swing.JInternalFrame {
         
         for (int i = 0; i < tbDiaria.getRowCount(); i++) {
             if(tbDiaria.getValueAt(i, 3) != null && ((boolean)tbDiaria.getValueAt(i, 3)) == true) {
-                subTotal += (float)tbDiaria.getValueAt(i, 2);
+                subTotal += converte(tbDiaria.getValueAt(i, 2));
             }
          }
         for (int i = 0; i < tbServico.getRowCount(); i++) {
             if(tbServico.getValueAt(i, 2) != null && ((boolean)tbServico.getValueAt(i, 2)) == true) {
-                subTotal += (float)tbServico.getValueAt(i, 1);
+                subTotal += converte(tbServico.getValueAt(i, 1));
             }
          }
         for (int i = 0; i < tbConsumo.getRowCount(); i++) {
             if(tbConsumo.getValueAt(i, 2) != null && ((boolean)tbConsumo.getValueAt(i, 2)) == true) {
-                subTotal += (float)tbConsumo.getValueAt(i, 1);
+                subTotal += converte(tbConsumo.getValueAt(i, 1));
             }
          }
         return subTotal;
+    }
+    
+    public float converte(Object campo){
+        NumberFormat nf = NumberFormat.getCurrencyInstance();
+        Number num = null;
+        try {
+            num = nf.parse((String) campo);
+        } catch (ParseException ex) {
+            Logger.getLogger(CartaoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return num.floatValue();  
     }
     
     private void btnConfirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmaActionPerformed

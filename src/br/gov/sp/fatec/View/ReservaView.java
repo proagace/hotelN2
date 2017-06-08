@@ -13,6 +13,7 @@ import br.gov.sp.fatec.Model.Quarto;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.io.File;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -81,7 +82,7 @@ public class ReservaView extends javax.swing.JInternalFrame {
         }
     ) {
         Class[] types = new Class [] {
-            java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, Date.class, Date.class
+            java.lang.Integer.class, java.lang.String.class, java.lang.String.class, Date.class, Date.class
         };
         boolean[] canEdit = new boolean [] {
             false, false, false, false, false
@@ -201,7 +202,7 @@ public class ReservaView extends javax.swing.JInternalFrame {
         .addComponent(lblInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addGroup(layout.createSequentialGroup()
             .addContainerGap()
-            .addComponent(tabCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE))
+            .addComponent(tabCadastro))
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,7 +345,8 @@ public class ReservaView extends javax.swing.JInternalFrame {
             tmodel.addRow(new Object[]{
                 quarto.getNumQuarto(),
                 quarto.getTipoQuarto(),
-                quarto.getValorDiaria()});
+                NumberFormat.getCurrencyInstance().format(quarto.getValorDiaria())
+            });
         }
         tableQuarto.setAutoCreateRowSorter(true);
     }

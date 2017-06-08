@@ -16,6 +16,7 @@ import com.toedter.calendar.JDateChooser;
 import java.awt.Component;
 import java.io.File;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -104,11 +105,11 @@ public class PagamentoView extends javax.swing.JInternalFrame {
 
         },
         new String [] {
-            "Código da Locação", "Útilma Atualização", "Total R$", "Seleção"
+            "Código da Locação", "Útilma Atualização", "Total", "Seleção"
         }
     ) {
         Class[] types = new Class [] {
-            java.lang.Integer.class, java.util.Date.class, java.lang.Float.class, java.lang.Boolean.class
+            java.lang.Integer.class, java.util.Date.class, java.lang.String.class, java.lang.Boolean.class
         };
         boolean[] canEdit = new boolean [] {
             false, false, false, true
@@ -129,6 +130,7 @@ public class PagamentoView extends javax.swing.JInternalFrame {
 
     jLabel2.setText("Diárias:");
 
+    lblInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     lblInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações do Hóspede", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 12))); // NOI18N
 
     btnConfirma.setText("Realizar Pagamento");
@@ -143,11 +145,11 @@ public class PagamentoView extends javax.swing.JInternalFrame {
 
         },
         new String [] {
-            "Código da Locação", "Total R$", "Seleção"
+            "Código da Locação", "Total", "Seleção"
         }
     ) {
         Class[] types = new Class [] {
-            java.lang.Integer.class, java.lang.Float.class, java.lang.Boolean.class
+            java.lang.Integer.class, java.lang.String.class, java.lang.Boolean.class
         };
         boolean[] canEdit = new boolean [] {
             false, false, true
@@ -169,11 +171,11 @@ public class PagamentoView extends javax.swing.JInternalFrame {
 
         },
         new String [] {
-            "Código da Locação", "Total R$", "Seleção"
+            "Código da Locação", "Total", "Seleção"
         }
     ) {
         Class[] types = new Class [] {
-            java.lang.Integer.class, java.lang.Float.class, java.lang.Boolean.class
+            java.lang.Integer.class, java.lang.String.class, java.lang.Boolean.class
         };
         boolean[] canEdit = new boolean [] {
             false, false, true
@@ -200,50 +202,54 @@ public class PagamentoView extends javax.swing.JInternalFrame {
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addComponent(lblInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addGroup(layout.createSequentialGroup()
-            .addComponent(jLabel2)
-            .addGap(0, 0, Short.MAX_VALUE))
-        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-        .addComponent(jScrollPane2)
-        .addComponent(jScrollPane3)
-        .addGroup(layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(192, 192, 192)
-                    .addComponent(jLabel1)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jLabel3))
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel4)))
-            .addContainerGap(287, Short.MAX_VALUE))
-        .addComponent(btnConfirma, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnConfirma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(313, 313, 313)
+                            .addComponent(jLabel3)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel4)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addContainerGap())
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel1)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(395, 395, 395))
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addContainerGap(18, Short.MAX_VALUE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel1)
                 .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(lblInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addComponent(jLabel2)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(17, 17, 17)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel3)
+                .addComponent(jLabel2)
+                .addComponent(jLabel4))
+            .addGap(7, 7, 7)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(jLabel3)
-            .addGap(1, 1, 1)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addComponent(jLabel4)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(btnConfirma))
+            .addComponent(btnConfirma)
+            .addContainerGap())
     );
 
     pack();
@@ -314,7 +320,6 @@ public class PagamentoView extends javax.swing.JInternalFrame {
             Messages.showError("Selecione ao menos uma conta a ser paga");        
     }//GEN-LAST:event_btnConfirmaActionPerformed
 
-
     
         
     public void preencherDiarias() {
@@ -328,11 +333,13 @@ public class PagamentoView extends javax.swing.JInternalFrame {
             return;
         }
         for (Diarias diarias : tabela) {
-            col = new Vector();
-            col.add(diarias.getIdLocacao());
-            col.add(diarias.getAtualizacao());
-            col.add(diarias.getTotal());
-            dmodel.addRow(col);
+            if(diarias.getTotal() != 0) {
+                col = new Vector();
+                col.add(diarias.getIdLocacao());
+                col.add(diarias.getAtualizacao());
+                col.add(NumberFormat.getCurrencyInstance().format(diarias.getTotal()));
+                dmodel.addRow(col);
+            }
         }
     }
     
@@ -344,7 +351,7 @@ public class PagamentoView extends javax.swing.JInternalFrame {
         for (TotalServico servico : control.listaServico(txtCpf.getText())) {
             smodel.addRow(new Object[]{
                 servico.getIdCadastro(),
-                servico.getTotal()
+                NumberFormat.getCurrencyInstance().format(servico.getTotal())
             });
         }
     }
@@ -357,7 +364,7 @@ public class PagamentoView extends javax.swing.JInternalFrame {
         for (TotalConsumo consumo : control.listaConsumo(txtCpf.getText())) {
             cmodel.addRow(new Object[]{
                 consumo.getIdCadastro(),
-                consumo.getTotal()
+                NumberFormat.getCurrencyInstance().format(consumo.getTotal())
             });
         }       
     }
