@@ -287,6 +287,8 @@ public class ProdutoView extends javax.swing.JInternalFrame {
         }
         pcontrol.buscaQuarto(txtCpf.getText(), (DefaultComboBoxModel) cmbQuarto.getModel());
         lblInfo.setText(cliente.toString());
+        if(cmbQuarto.getItemCount() == 0)
+            return;
         togglePanes(true);
     }//GEN-LAST:event_txtCpfPropertyChange
 
