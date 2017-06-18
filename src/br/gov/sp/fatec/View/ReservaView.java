@@ -250,6 +250,7 @@ public class ReservaView extends javax.swing.JInternalFrame {
         cliente = control.verificaHospede(new Hospede(txtCpf.getText()));
         if (cliente == null) {
             Messages.showInformation("Hóspede não cadastrado!");
+            txtCpf.setText("");            
             return;
         }
         lblInfo.setText(cliente.toString());

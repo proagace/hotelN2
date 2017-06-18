@@ -57,30 +57,16 @@ public class CadastroControl {
         return null;     
     }
     
-    public boolean verificaConsumo(String cpf){
+    public boolean verificaConsumo(int idCadastro){
         TotalConsumoDAO daocons = new TotalConsumoDAO();
         java.util.List<Cadastro> temp;                  
 
             
         try {
-            hosp = daohosp.buscar(new Hospede(cpf));
-            if(hosp == null){
-                Messages.showError("Hóspede não encontrado");
-                return false;
-            }
-            temp = daocad.listar("where idHospede=" + hosp.getIdHospede());
-            if (temp != null) {
-                java.util.List<TotalConsumo> consumo = new java.util.ArrayList<>();
-                for (Cadastro locacao : temp) {
-                    TotalConsumo obj = new TotalConsumo();
-                    obj.setIdCadastro(locacao.getId());
-                    obj = daocons.buscar(obj);
-                    if (obj != null)
-                        consumo.add(obj);
-                }
-                return consumo.isEmpty();
-                
-            }     
+            TotalConsumo obj = new TotalConsumo();
+            obj.setIdCadastro(idCadastro);
+            obj = daocons.buscar(obj);
+            return obj == null;  
         } catch (SQLException e) {
             Messages.showError("Erro ao verificar consumo: " + e.getMessage());            
         }

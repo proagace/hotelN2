@@ -283,6 +283,7 @@ public class ProdutoView extends javax.swing.JInternalFrame {
         cliente = control.verificaHospede(new Hospede(txtCpf.getText()));
         if (cliente == null) {
             Messages.showInformation("Hóspede não cadastrado!");
+            txtCpf.setText("");            
             return;
         }
         pcontrol.buscaQuarto(txtCpf.getText(), (DefaultComboBoxModel) cmbQuarto.getModel());

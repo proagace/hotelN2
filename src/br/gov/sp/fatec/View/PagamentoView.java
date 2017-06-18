@@ -290,6 +290,7 @@ public class PagamentoView extends javax.swing.JInternalFrame {
         cliente = control.verificaHospede(new Hospede(txtCpf.getText()));
         if (cliente == null) {
             Messages.showInformation("Hóspede não cadastrado!");
+            txtCpf.setText("");            
             return;
         }
         preencherDiarias();

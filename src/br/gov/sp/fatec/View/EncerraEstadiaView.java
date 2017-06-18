@@ -92,7 +92,7 @@ public class EncerraEstadiaView extends javax.swing.JInternalFrame {
 
         },
         new String [] {
-            "Código Locação", "Quarto", "Conta", "Seleção"
+            "Código Locação", "Quarto", "Situação de Conta", "Seleção"
         }
     ) {
         Class[] types = new Class [] {
@@ -108,6 +108,11 @@ public class EncerraEstadiaView extends javax.swing.JInternalFrame {
 
         public boolean isCellEditable(int rowIndex, int columnIndex) {
             return canEdit [columnIndex];
+        }
+    });
+    tbEstadia.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            tbEstadiaMouseClicked(evt);
         }
     });
     jScrollPane1.setViewportView(tbEstadia);
@@ -173,14 +178,17 @@ public class EncerraEstadiaView extends javax.swing.JInternalFrame {
         cliente = control.verificaHospede(new Hospede(txtCpf.getText()));
         if (cliente == null) {
             Messages.showInformation("Hóspede não cadastrado!");
+            txtCpf.setText("");
+            return;
+        }       
+        List<Cadastro> temp = control.listarLocacao(txtCpf.getText());
+        if (temp.isEmpty()) {
+            Messages.showInformation("Não há locação vinculada a este cpf.");
+            txtCpf.setText("");            
             return;
         }
         lblInfo.setText(cliente.toString());
 
-        preencheEstadia();
-        for (int i = 0; i < tbEstadia.getRowCount(); i++) {
-
-        }
         preencheEstadia();
         togglePanes(true);
     }//GEN-LAST:event_txtCpfPropertyChange
@@ -201,23 +209,27 @@ public class EncerraEstadiaView extends javax.swing.JInternalFrame {
             Messages.showError("Selecione ao menos uma locação!");        
     }//GEN-LAST:event_btnConfirmaActionPerformed
 
+    private void tbEstadiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEstadiaMouseClicked
+        for (int i = 0; i < tbEstadia.getRowCount(); i++) {
+            if(tbEstadia.getValueAt(i, 2).equals("Conta(s) Pendente(s)"))
+                tbEstadia.getModel().setValueAt(Boolean.FALSE, i, 3);
+        
+        }
+    }//GEN-LAST:event_tbEstadiaMouseClicked
+
     private void preencheEstadia() {
         model = (DefaultTableModel) tbEstadia.getModel();
         CadastroControl controlcad = new CadastroControl();
         model.setRowCount(0);
         String conta;
+        
 
-        List<Cadastro> temp = controlcad.listarLocacao(txtCpf.getText());
-        if (temp.isEmpty()) {
-            Messages.showInformation("Não há locação vinculada a este cpf.");
-            return;
-        }
-
-        for (Cadastro cadastro : temp) {
-            if (controlcad.verificaConsumo(txtCpf.getText())) {
-                conta = "Pagamento Ok";
+        for (Cadastro cadastro : controlcad.listarLocacao(txtCpf.getText())) {
+            int id = cadastro.getId();
+            if (controlcad.verificaConsumo(id)) {
+                conta = "Conta(s) Quitada(s)";
             } else {
-                conta = "Conta(s) Pendente(s)!";
+                conta = "Conta(s) Pendente(s)";
             }
 
             model.addRow(new Object[]{

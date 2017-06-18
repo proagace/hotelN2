@@ -103,11 +103,14 @@
               <Table columnCount="4" rowCount="0">
                 <Column editable="false" title="C&#xf3;digo Loca&#xe7;&#xe3;o" type="java.lang.Integer"/>
                 <Column editable="false" title="Quarto" type="java.lang.Integer"/>
-                <Column editable="false" title="Conta" type="java.lang.String"/>
+                <Column editable="false" title="Situa&#xe7;&#xe3;o de Conta" type="java.lang.String"/>
                 <Column editable="true" title="Sele&#xe7;&#xe3;o" type="java.lang.Boolean"/>
               </Table>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbEstadiaMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
