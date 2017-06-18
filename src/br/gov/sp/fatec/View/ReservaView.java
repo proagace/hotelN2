@@ -109,9 +109,8 @@ public class ReservaView extends javax.swing.JInternalFrame {
     jPanel1Layout.setHorizontalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanel1Layout.createSequentialGroup()
-            .addGap(31, 31, 31)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 6, Short.MAX_VALUE))
     );
     jPanel1Layout.setVerticalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -338,10 +337,15 @@ public class ReservaView extends javax.swing.JInternalFrame {
 
     public void preencherTbQuarto(){
         DefaultTableModel tmodel = (DefaultTableModel) tableQuarto.getModel();
-        
         CadastroControl control = new CadastroControl();
+        
         tmodel.setRowCount(0);
-        for (Quarto quarto : control.listarQuartos()){
+        List<Quarto> temp = control.listarQuartos();
+        if (temp.isEmpty()) {
+            Messages.showInformation("Não há quartos disponíveis no momento!");
+            return;
+        }        
+        for (Quarto quarto : temp){
             tmodel.addRow(new Object[]{
                 quarto.getNumQuarto(),
                 quarto.getTipoQuarto(),
