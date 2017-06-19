@@ -123,7 +123,7 @@ public class CartaoView extends javax.swing.JInternalFrame {
     jLabel10.setText("Dados do Cartão / Titular do Cartão");
 
     try {
-        txtNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("################")));
+        txtNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#### #### #### ####")));
     } catch (java.text.ParseException ex) {
         ex.printStackTrace();
     }
@@ -329,11 +329,8 @@ public class CartaoView extends javax.swing.JInternalFrame {
         
         if(selected){
             Messages.show("Pagamento realizado com sucesso.");
+            MainView.abreForm(PagamentoView.getInstance());
             window.dispose();
-            PagamentoView.getInstance().preencherConsumo();
-            PagamentoView.getInstance().preencherDiarias();
-            PagamentoView.getInstance().preencherServico();
-            NotificacaoView.preencherTable();
         }
 
     }//GEN-LAST:event_btnConfirmaActionPerformed

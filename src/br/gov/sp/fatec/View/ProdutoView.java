@@ -255,7 +255,8 @@ public class ProdutoView extends javax.swing.JInternalFrame {
         for (int i = 0; i < tbConsumo.getRowCount(); i++) {
             ctrlSol.solicitaProduto(new TotalConsumo(cad.getId(), (int) tbConsumo.getValueAt(i, 0), (int) tbConsumo.getValueAt(i, 3), false));
         }
-        Messages.show("Produtos solicitados com sucesso.");      
+        Messages.show("Produtos solicitados com sucesso.");
+        MainView.abreForm(ProdutoView.getInstance());
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void togglePanes(boolean state) {

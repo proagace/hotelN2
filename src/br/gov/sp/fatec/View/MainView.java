@@ -16,9 +16,11 @@ import java.beans.PropertyVetoException;
 import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -70,6 +72,8 @@ public class MainView extends javax.swing.JFrame {
         pagamento = new javax.swing.JMenuItem();
         menuConsulta = new javax.swing.JMenu();
         Hospede = new javax.swing.JMenuItem();
+        menuSair = new javax.swing.JMenu();
+        Logout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("VendraHotel");
@@ -95,7 +99,7 @@ public class MainView extends javax.swing.JFrame {
     );
     mainContainerLayout.setVerticalGroup(
         mainContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 491, Short.MAX_VALUE)
+        .addGap(0, 500, Short.MAX_VALUE)
     );
 
     menuCadastro.setMnemonic('c');
@@ -187,6 +191,20 @@ public class MainView extends javax.swing.JFrame {
 
     jMenuBar1.add(menuConsulta);
 
+    menuSair.setText("Sair");
+
+    Logout.setText("Logout");
+    Logout.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            LogoutActionPerformed(evt);
+        }
+    });
+    menuSair.add(Logout);
+
+    jMenuBar1.add(Box.createHorizontalGlue());
+
+    jMenuBar1.add(menuSair);
+
     setJMenuBar(jMenuBar1);
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -210,7 +228,8 @@ public class MainView extends javax.swing.JFrame {
     public void toggleMenus() {
         int n = jMenuBar1.getMenuCount();
         for (int i = 0; i < n; i++) {
-            jMenuBar1.getMenu(i).setEnabled(stateMenus);
+            if (jMenuBar1.getMenu(i) != null)
+                jMenuBar1.getMenu(i).setEnabled(stateMenus);
         }
         stateMenus = !stateMenus;
     }
@@ -257,6 +276,11 @@ public class MainView extends javax.swing.JFrame {
     private void EstadiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstadiaActionPerformed
         abreForm(EncerraEstadiaView.getInstance());
     }//GEN-LAST:event_EstadiaActionPerformed
+
+    private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
+        toggleMenus();
+        abreForm(new LoginView(this));
+    }//GEN-LAST:event_LogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,6 +354,7 @@ public class MainView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Estadia;
     private javax.swing.JMenuItem Hospede;
+    private javax.swing.JMenuItem Logout;
     private javax.swing.JMenuBar jMenuBar1;
     private static javax.swing.JDesktopPane mainContainer;
     private javax.swing.JMenu menuCadastro;
@@ -339,6 +364,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuLocacao;
     private javax.swing.JMenuItem menuProdutos;
     private javax.swing.JMenuItem menuReserva;
+    private javax.swing.JMenu menuSair;
     private javax.swing.JMenu menuTeste;
     private javax.swing.JMenuItem pagamento;
     private javax.swing.JMenuItem test1;

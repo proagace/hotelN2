@@ -10,7 +10,6 @@ import br.gov.sp.fatec.Model.Quarto;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import br.gov.sp.fatec.ServicosTecnicos.Persistencia.CadastroDAO;
 import br.gov.sp.fatec.ServicosTecnicos.Persistencia.QuartoDAO;
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 import java.sql.SQLException;
 
 /**
