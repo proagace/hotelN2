@@ -275,7 +275,7 @@ public class ReservaView extends javax.swing.JInternalFrame {
                     selection = true;
                 }
             }
-            preencherReserva();
+            preencherTbQuarto();
         }else{ //Cancelamento
             for (int i = 0; i < tableCancel.getRowCount(); i++) {
                 if(tableCancel.getValueAt(i, 4) != null && ((boolean)tableCancel.getValueAt(i, 4)) == true) {
@@ -283,8 +283,8 @@ public class ReservaView extends javax.swing.JInternalFrame {
                     Messages.showInformation("Cancelamento realizado.");                    
                     selection = true;
                 }
-            }            
-            preencherTbQuarto();
+            }           
+            preencherReserva();
         }
         if(!selection)
             Messages.showError("Selecione pelo menos um quarto");
@@ -314,6 +314,7 @@ public class ReservaView extends javax.swing.JInternalFrame {
     public void preencherReserva(){
         modelReserva = (DefaultTableModel) tableCancel.getModel();
         modelReserva.getDataVector().clear();
+        modelReserva.fireTableDataChanged();
         CadastroControl control = new CadastroControl();
         //"Quarto", "Tipo", "Vlr Diaria", "Check-In", "Check-Out"
         Vector aux;
@@ -338,6 +339,8 @@ public class ReservaView extends javax.swing.JInternalFrame {
 
     public void preencherTbQuarto(){
         DefaultTableModel tmodel = (DefaultTableModel) tableQuarto.getModel();
+        tmodel.getDataVector().clear();
+        tmodel.fireTableDataChanged();
         CadastroControl control = new CadastroControl();
         
         tmodel.setRowCount(0);

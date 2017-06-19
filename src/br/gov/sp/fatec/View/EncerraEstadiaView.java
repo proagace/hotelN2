@@ -198,14 +198,15 @@ public class EncerraEstadiaView extends javax.swing.JInternalFrame {
         boolean selected = false;
         
         for (int i = 0; i < tbEstadia.getRowCount(); i++) {
-            if (tbEstadia.getValueAt(i, 3) != null) {
+            if (tbEstadia.getValueAt(i, 3) != null && (boolean)tbEstadia.getValueAt(i, 3) == true) {
                 control.encerrar((int) tbEstadia.getValueAt(i, 0), (int)tbEstadia.getValueAt(i, 1));
                 selected = true;
             }
         }
-        if(selected)
+        if(selected) {
             Messages.showInformation("Estadia encerrada com sucesso!");
-        else
+            preencheEstadia();
+        } else
             Messages.showError("Selecione ao menos uma locação!");        
     }//GEN-LAST:event_btnConfirmaActionPerformed
 
@@ -219,6 +220,8 @@ public class EncerraEstadiaView extends javax.swing.JInternalFrame {
 
     private void preencheEstadia() {
         model = (DefaultTableModel) tbEstadia.getModel();
+        model.getDataVector().clear();
+        model.fireTableDataChanged();
         CadastroControl controlcad = new CadastroControl();
         model.setRowCount(0);
         String conta;

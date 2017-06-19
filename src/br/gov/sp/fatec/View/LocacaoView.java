@@ -236,6 +236,7 @@ public class LocacaoView extends javax.swing.JInternalFrame {
         List<Cadastro> temp = control.listarReservas(cliente.getIdHospede());
         if (temp.isEmpty()) {
             Messages.showInformation("Nenhuma reserva encontrada!");
+            modelReserva.fireTableDataChanged();
             return;
         }
         for (Cadastro cadastro : temp) {
@@ -295,11 +296,11 @@ public class LocacaoView extends javax.swing.JInternalFrame {
                     selected = true;
                 }
             }
-            preencherReserva();
         }
-            if(selected)
+            if(selected) {
                 Messages.showInformation("Locação realizada!");
-            else
+                preencherReserva();
+            } else
                 Messages.showError("Selecione ao menos um quarto!");
     }//GEN-LAST:event_btnOkComumActionPerformed
 

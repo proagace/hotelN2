@@ -47,7 +47,23 @@ public class TotalServicoDAO implements DAO<TotalServico> {
 
     @Override
     public boolean adicionar(TotalServico item) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pst=BancoFactory.abreBanco().prepareStatement(
+                "insert into solicitacaoservico values (null, ?, ?, ?, ?)");
+        
+        pst.setInt(1, item.getIdCadastro());
+        pst.setInt(2, item.getIdServico());
+        pst.setDate(3, item.getDataSolicitacao());
+        pst.setBoolean(4, item.isPago());
+        
+        try {
+            int rows = pst.executeUpdate();
+            return rows > 0;
+        } catch (SQLException e) {
+            Messages.showError("Erro ao executar inserção: " + e.getMessage());
+        }finally{
+            BancoFactory.fechaBanco();
+        }
+        return false;
     }
 
     @Override

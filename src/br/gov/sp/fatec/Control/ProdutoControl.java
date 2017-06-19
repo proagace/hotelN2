@@ -40,29 +40,5 @@ public class ProdutoControl {
         return true;
     }
     
-    public void buscaQuarto(String cpf, DefaultComboBoxModel combo){
-        CadastroViewDAO daoc = new CadastroViewDAO();
-        
-        try {
-            for (Cadastro cadastro : daoc.listar("where cpf='"+ cpf+"' and tipoCadastro='Locacao'")) {
-                combo.addElement(cadastro.getNumQuarto());
-            }
-        } catch (SQLException e) {
-            Messages.showError("Erro ao buscar quartos: " + e.getMessage());
-        }
-    }
-    
-    public Cadastro buscaCadastro(String cpf, int numQuarto){
-        CadastroViewDAO daoc = new CadastroViewDAO();
-        
-        
-        try {
-            List<Cadastro> lcad = daoc.listar("where cpf='"+cpf+"' and numQuarto="+numQuarto);
-            if(lcad != null)
-                return lcad.get(0);
-        } catch (SQLException e) {
-            Messages.showError("Erro: " + e.getMessage());            
-        }
-        return null;
-    }
+
 }
