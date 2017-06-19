@@ -226,7 +226,7 @@ public class EncerraEstadiaView extends javax.swing.JInternalFrame {
 
         for (Cadastro cadastro : controlcad.listarLocacao(txtCpf.getText())) {
             int id = cadastro.getId();
-            if (controlcad.verificaConsumo(id)) {
+            if (controlcad.verificaConsumo(id) && controlcad.verificaDiaria(id) && controlcad.verificaServico(id)) {
                 conta = "Conta(s) Quitada(s)";
             } else {
                 conta = "Conta(s) Pendente(s)";

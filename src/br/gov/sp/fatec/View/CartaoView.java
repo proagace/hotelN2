@@ -329,6 +329,10 @@ public class CartaoView extends javax.swing.JInternalFrame {
         
         if(selected){
             Messages.show("Pagamento realizado com sucesso.");
+            window.dispose();
+            PagamentoView.getInstance().preencherConsumo();
+            PagamentoView.getInstance().preencherDiarias();
+            PagamentoView.getInstance().preencherServico();
             NotificacaoView.preencherTable();
         }
 

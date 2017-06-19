@@ -10,6 +10,7 @@ import br.gov.sp.fatec.Model.Diarias;
 import br.gov.sp.fatec.Model.Hospede;
 import br.gov.sp.fatec.Model.Quarto;
 import br.gov.sp.fatec.Model.TotalConsumo;
+import br.gov.sp.fatec.Model.TotalServico;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import br.gov.sp.fatec.ServicosTecnicos.Persistencia.CadastroDAO;
 import br.gov.sp.fatec.ServicosTecnicos.Persistencia.CadastroViewDAO;
@@ -17,6 +18,7 @@ import br.gov.sp.fatec.ServicosTecnicos.Persistencia.DiariasDAO;
 import br.gov.sp.fatec.ServicosTecnicos.Persistencia.HospedeDAO;
 import br.gov.sp.fatec.ServicosTecnicos.Persistencia.QuartoDAO;
 import br.gov.sp.fatec.ServicosTecnicos.Persistencia.TotalConsumoDAO;
+import br.gov.sp.fatec.ServicosTecnicos.Persistencia.TotalServicoDAO;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
@@ -73,6 +75,40 @@ public class CadastroControl {
         
         return false;
     }
+    
+    public boolean verificaServico(int idCadastro){
+        TotalServicoDAO daoserv = new TotalServicoDAO();
+        java.util.List<Cadastro> temp;                  
+
+            
+        try {
+            TotalServico obj = new TotalServico();
+            obj.setIdCadastro(idCadastro);
+            obj = daoserv.buscar(obj);
+            return obj == null;  
+        } catch (SQLException e) {
+            Messages.showError("Erro ao verificar serviço: " + e.getMessage());            
+        }
+        
+        return false;
+    } 
+    
+    public boolean verificaDiaria(int idCadastro){
+        DiariasDAO daodiar = new DiariasDAO();
+        java.util.List<Cadastro> temp;                  
+
+            
+        try {
+            Diarias obj = new Diarias();
+            obj.setIdLocacao(idCadastro);
+            obj = daodiar.buscar(obj);
+            return obj == null;  
+        } catch (SQLException e) {
+            Messages.showError("Erro ao verificar diaria: " + e.getMessage());            
+        }
+        
+        return false;
+    }    
     
     public List<Cadastro> listarReservas(int idHospede) {
         try {
