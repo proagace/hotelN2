@@ -198,7 +198,7 @@ public class EncerraEstadiaView extends javax.swing.JInternalFrame {
         boolean selected = false;
         
         for (int i = 0; i < tbEstadia.getRowCount(); i++) {
-            if (tbEstadia.getValueAt(i, 3) != null) {
+            if (tbEstadia.getValueAt(i, 3) != null && (boolean)tbEstadia.getValueAt(i, 3) == true) {
                 control.encerrar((int) tbEstadia.getValueAt(i, 0), (int)tbEstadia.getValueAt(i, 1));
                 selected = true;
             }
