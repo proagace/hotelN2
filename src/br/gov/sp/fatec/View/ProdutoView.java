@@ -247,8 +247,7 @@ public class ProdutoView extends javax.swing.JInternalFrame {
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         SolicitacaoControl ctrlSol = new SolicitacaoControl();
-        ProdutoControl ctrlProd  = new ProdutoControl();
-        Cadastro cad = ctrlProd.buscaCadastro(txtCpf.getText(), (int) cmbQuarto.getSelectedItem());
+        Cadastro cad = ctrlSol.buscaCadastro(txtCpf.getText(), (int) cmbQuarto.getSelectedItem());
         
         if(cad == null)
             return;
@@ -279,14 +278,14 @@ public class ProdutoView extends javax.swing.JInternalFrame {
         if (txtCpf.getText().contains(" "))
             return;
         CadastroControl control = new CadastroControl();
-        ProdutoControl pcontrol = new ProdutoControl();
+        SolicitacaoControl scontrol = new SolicitacaoControl();
         cliente = control.verificaHospede(new Hospede(txtCpf.getText()));
         if (cliente == null) {
             Messages.showInformation("Hóspede não cadastrado!");
             txtCpf.setText("");            
             return;
         }
-        pcontrol.buscaQuarto(txtCpf.getText(), (DefaultComboBoxModel) cmbQuarto.getModel());
+        scontrol.buscaQuarto(txtCpf.getText(), (DefaultComboBoxModel) cmbQuarto.getModel());
         lblInfo.setText(cliente.toString());
         if(cmbQuarto.getItemCount() == 0)
             return;

@@ -279,10 +279,11 @@ public class CartaoView extends javax.swing.JInternalFrame {
         Number num = null;
         try {
             num = nf.parse((String) campo);
+            return num.floatValue();  
         } catch (ParseException ex) {
-            Logger.getLogger(CartaoView.class.getName()).log(Level.SEVERE, null, ex);
+            Messages.showError("Erro inesperado.");
         }
-        return num.floatValue();  
+        return 0;
     }
     
     private void btnConfirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmaActionPerformed

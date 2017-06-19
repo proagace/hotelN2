@@ -65,7 +65,8 @@ public class MainView extends javax.swing.JFrame {
         test1 = new javax.swing.JMenuItem();
         menuLocacao = new javax.swing.JMenuItem();
         menuReserva = new javax.swing.JMenuItem();
-        Estadia = new javax.swing.JMenuItem();
+        menuEstadia = new javax.swing.JMenuItem();
+        menuServico = new javax.swing.JMenuItem();
         menuDiarias = new javax.swing.JMenu();
         pagamento = new javax.swing.JMenuItem();
         menuConsulta = new javax.swing.JMenu();
@@ -151,14 +152,22 @@ public class MainView extends javax.swing.JFrame {
     });
     menuTeste.add(menuReserva);
 
-    Estadia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
-    Estadia.setText("Encerrar Estadia");
-    Estadia.addActionListener(new java.awt.event.ActionListener() {
+    menuEstadia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+    menuEstadia.setText("Encerrar Estadia");
+    menuEstadia.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            EstadiaActionPerformed(evt);
+            menuEstadiaActionPerformed(evt);
         }
     });
-    menuTeste.add(Estadia);
+    menuTeste.add(menuEstadia);
+
+    menuServico.setText("Serviço");
+    menuServico.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            menuServicoActionPerformed(evt);
+        }
+    });
+    menuTeste.add(menuServico);
 
     jMenuBar1.add(menuTeste);
 
@@ -254,9 +263,13 @@ public class MainView extends javax.swing.JFrame {
         abreForm(ConsultaHospedeView.getInstance());
     }//GEN-LAST:event_HospedeActionPerformed
 
-    private void EstadiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstadiaActionPerformed
+    private void menuEstadiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEstadiaActionPerformed
         abreForm(EncerraEstadiaView.getInstance());
-    }//GEN-LAST:event_EstadiaActionPerformed
+    }//GEN-LAST:event_menuEstadiaActionPerformed
+
+    private void menuServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuServicoActionPerformed
+        abreForm(ServicoView.getInstance());
+    }//GEN-LAST:event_menuServicoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -328,17 +341,18 @@ public class MainView extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem Estadia;
     private javax.swing.JMenuItem Hospede;
     private javax.swing.JMenuBar jMenuBar1;
     private static javax.swing.JDesktopPane mainContainer;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenu menuConsulta;
     private javax.swing.JMenu menuDiarias;
+    private javax.swing.JMenuItem menuEstadia;
     private javax.swing.JMenuItem menuHospedes;
     private javax.swing.JMenuItem menuLocacao;
     private javax.swing.JMenuItem menuProdutos;
     private javax.swing.JMenuItem menuReserva;
+    private javax.swing.JMenuItem menuServico;
     private javax.swing.JMenu menuTeste;
     private javax.swing.JMenuItem pagamento;
     private javax.swing.JMenuItem test1;
