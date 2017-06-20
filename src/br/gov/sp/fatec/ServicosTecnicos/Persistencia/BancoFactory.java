@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  * @author Thiago
  */
 public class BancoFactory {
-    private static String usuario, senha, servidor, banco;
+    private static String usuario, senha, servidor, banco, port;
     private static Connection conexao;
     private static Properties config;
     static {
@@ -33,8 +33,9 @@ public class BancoFactory {
         }
         usuario = config.getProperty("DB_USER");
         senha = config.getProperty("DB_PASSWORD");
-        servidor = config.getProperty("DB_PORT");
+        servidor = config.getProperty("DB_ADDRESS");
         banco = config.getProperty("DB_BASE");
+        port = config.getProperty("DB_PORT");
     }
     
     public static Connection abreBanco() {
@@ -42,7 +43,7 @@ public class BancoFactory {
             Class.forName("com.mysql.jdbc.Driver");
             conexao = DriverManager.getConnection(
                     "jdbc:mysql://" + servidor +
-                    ":3306/" + banco, usuario, senha
+                    ":" + port + "/" + banco, usuario, senha
             );
         } catch (ClassNotFoundException e) {
             Messages.showError("Driver não encontrado: " + e.getMessage());

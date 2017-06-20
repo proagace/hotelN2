@@ -9,6 +9,7 @@ import br.gov.sp.fatec.Control.NotificacaoControl;
 import br.gov.sp.fatec.Model.Diarias;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.awt.event.MouseEvent;
+import java.text.NumberFormat;
 import java.util.Vector;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -80,11 +81,11 @@ public class NotificacaoView extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cod Locação", "Ultima atualização", "Total R$"
+                "Cod Locação", "Ultima atualização", "Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.util.Date.class, java.lang.Float.class
+                java.lang.Integer.class, java.util.Date.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false
@@ -138,7 +139,7 @@ public class NotificacaoView extends javax.swing.JInternalFrame {
                 col = new Vector();
                 col.add(diarias.getIdLocacao());
                 col.add(diarias.getAtualizacao());
-                col.add(diarias.getTotal());
+                col.add(NumberFormat.getCurrencyInstance().format(diarias.getTotal()));
                 model.addRow(col);
             }
         } catch (NullPointerException ex) {

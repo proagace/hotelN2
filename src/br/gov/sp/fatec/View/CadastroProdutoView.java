@@ -15,11 +15,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import static java.nio.file.StandardCopyOption.*;
+import javafx.stage.FileChooser;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -219,6 +221,8 @@ public class CadastroProdutoView extends javax.swing.JInternalFrame {
 
     private void lbl_iconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_iconMouseClicked
         JFileChooser fc = new JFileChooser();
+        fc.setFileFilter(new FileNameExtensionFilter("Apenas Imagens", "png", "jpeg", "jpg", "gif"));
+        fc.setAcceptAllFileFilterUsed(false);
         int status = fc.showOpenDialog(null);
         if(status == JFileChooser.APPROVE_OPTION)
         try {
