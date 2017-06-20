@@ -10,10 +10,10 @@ import br.gov.sp.fatec.Control.EstadiaControl;
 import br.gov.sp.fatec.Model.Cadastro;
 import br.gov.sp.fatec.Model.Hospede;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
+import java.io.File;
 import java.util.List;
 import javax.swing.ImageIcon;
-import java.io.File;
-import java.util.Date;
+import javax.swing.JCheckBox;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -107,12 +107,9 @@ public class EncerraEstadiaView extends javax.swing.JInternalFrame {
         }
 
         public boolean isCellEditable(int rowIndex, int columnIndex) {
+            if (tbEstadia.getValueAt(rowIndex, 2).equals("Conta(s) Pendente(s)"))
+            return false;
             return canEdit [columnIndex];
-        }
-    });
-    tbEstadia.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            tbEstadiaMouseClicked(evt);
         }
     });
     jScrollPane1.setViewportView(tbEstadia);
@@ -210,14 +207,6 @@ public class EncerraEstadiaView extends javax.swing.JInternalFrame {
             Messages.showError("Selecione ao menos uma locação!");        
     }//GEN-LAST:event_btnConfirmaActionPerformed
 
-    private void tbEstadiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEstadiaMouseClicked
-        for (int i = 0; i < tbEstadia.getRowCount(); i++) {
-            if(tbEstadia.getValueAt(i, 2).equals("Conta(s) Pendente(s)"))
-                tbEstadia.getModel().setValueAt(Boolean.FALSE, i, 3);
-        
-        }
-    }//GEN-LAST:event_tbEstadiaMouseClicked
-
     private void preencheEstadia() {
         model = (DefaultTableModel) tbEstadia.getModel();
         model.getDataVector().clear();
@@ -225,21 +214,21 @@ public class EncerraEstadiaView extends javax.swing.JInternalFrame {
         CadastroControl controlcad = new CadastroControl();
         model.setRowCount(0);
         String conta;
-        
 
         for (Cadastro cadastro : controlcad.listarLocacao(txtCpf.getText())) {
+            
             int id = cadastro.getId();
             if (controlcad.verificaConsumo(id) && controlcad.verificaDiaria(id) && controlcad.verificaServico(id)) {
                 conta = "Conta(s) Quitada(s)";
             } else {
-                conta = "Conta(s) Pendente(s)";
+                conta = "Conta(s) Pendente(s)";  
             }
-
+            
             model.addRow(new Object[]{
-                cadastro.getId(),
-                cadastro.getNumQuarto(),
-                conta
-            });
+                    cadastro.getId(),
+                    cadastro.getNumQuarto(),
+                    conta
+                }); 
         }
     }
 

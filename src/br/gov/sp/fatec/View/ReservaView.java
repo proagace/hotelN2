@@ -5,14 +5,12 @@
  */
 package br.gov.sp.fatec.View;
 
-import br.gov.sp.fatec.ServicosTecnicos.Persistencia.QuartoDAO;
 import br.gov.sp.fatec.Control.CadastroControl;
 import br.gov.sp.fatec.Model.Cadastro;
 import br.gov.sp.fatec.Model.Hospede;
 import br.gov.sp.fatec.Model.Quarto;
 import br.gov.sp.fatec.ServicosTecnicos.Messages;
 import java.io.File;
-import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;

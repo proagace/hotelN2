@@ -11,5 +11,6 @@ package br.gov.sp.fatec.ServicosTecnicos;
  */
 public enum TipoProdutoEnum {
     Comestivel,
-    Bebida
+    Bebida,
+    Souvenir
 }

@@ -75,8 +75,6 @@ public class MainView extends javax.swing.JFrame {
         Estadia = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
         Logout = new javax.swing.JMenuItem();
-        menuSair1 = new javax.swing.JMenu();
-        Logout1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("VendraHotel");
@@ -223,21 +221,6 @@ public class MainView extends javax.swing.JFrame {
     jMenuBar1.add(Box.createHorizontalGlue());
 
     jMenuBar1.add(menuSair);
-
-    menuSair1.setText("Sair");
-
-    Logout1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-    Logout1.setText("Logout");
-    Logout1.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            LogoutActionPerformed(evt);
-        }
-    });
-    menuSair1.add(Logout1);
-
-    jMenuBar1.add(Box.createHorizontalGlue());
-
-    jMenuBar1.add(menuSair1);
 
     setJMenuBar(jMenuBar1);
 
@@ -397,7 +380,6 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem Estadia;
     private javax.swing.JMenuItem Hospede;
     private javax.swing.JMenuItem Logout;
-    private javax.swing.JMenuItem Logout1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private static javax.swing.JDesktopPane mainContainer;
@@ -409,7 +391,6 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuProdutos;
     private javax.swing.JMenuItem menuReserva;
     private javax.swing.JMenu menuSair;
-    private javax.swing.JMenu menuSair1;
     private javax.swing.JMenuItem menuServico;
     private javax.swing.JMenu menuTeste;
     private javax.swing.JMenuItem pagamento;

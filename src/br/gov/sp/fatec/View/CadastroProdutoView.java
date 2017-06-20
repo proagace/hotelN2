@@ -92,6 +92,11 @@ public class CadastroProdutoView extends javax.swing.JInternalFrame {
     jLabel3.setText("Tipo:");
 
     btn_limpar.setText("Limpar");
+    btn_limpar.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btn_limparActionPerformed(evt);
+        }
+    });
 
     btn_enviar.setText("Enviar");
     btn_enviar.addActionListener(new java.awt.event.ActionListener() {
@@ -230,6 +235,10 @@ public class CadastroProdutoView extends javax.swing.JInternalFrame {
             Messages.showError("Erro ao copiar arquivo!" + ex.getMessage());
         }
     }//GEN-LAST:event_lbl_iconMouseClicked
+
+    private void btn_limparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limparActionPerformed
+        MainView.abreForm(CadastroProdutoView.getInstance());
+    }//GEN-LAST:event_btn_limparActionPerformed
 
     private void limparCampos() {
         for (Object component : getContentPane().getComponents()) {
