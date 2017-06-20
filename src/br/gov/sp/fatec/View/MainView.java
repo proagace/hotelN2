@@ -120,6 +120,7 @@ public class MainView extends javax.swing.JFrame {
 
     jMenuBar1.add(menuCadastro);
 
+    menuConsulta.setMnemonic('a');
     menuConsulta.setText("Consulta");
 
     Hospede.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -133,7 +134,7 @@ public class MainView extends javax.swing.JFrame {
 
     jMenuBar1.add(menuConsulta);
 
-    menuTeste.setMnemonic('t');
+    menuTeste.setMnemonic('b');
     menuTeste.setText("Booking");
 
     menuLocacao.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
@@ -156,6 +157,7 @@ public class MainView extends javax.swing.JFrame {
 
     jMenuBar1.add(menuTeste);
 
+    jMenu1.setMnemonic('u');
     jMenu1.setText("Consumo");
 
     test1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -201,6 +203,7 @@ public class MainView extends javax.swing.JFrame {
 
     jMenuBar1.add(menuDiarias);
 
+    menuSair.setMnemonic('s');
     menuSair.setText("Sair");
 
     Logout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
@@ -286,7 +289,8 @@ public class MainView extends javax.swing.JFrame {
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
         toggleMenus();
         for (JInternalFrame allFrame : mainContainer.getAllFrames()) {
-           allFrame.dispose();
+            if (!(allFrame instanceof NotificacaoView))
+                allFrame.dispose();
             
         }
         abreForm(new LoginView(this));

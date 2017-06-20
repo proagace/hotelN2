@@ -36,6 +36,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuConsulta">
           <Properties>
+            <Property name="mnemonic" type="int" value="97"/>
             <Property name="text" type="java.lang.String" value="Consulta"/>
           </Properties>
           <SubComponents>
@@ -54,7 +55,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuTeste">
           <Properties>
-            <Property name="mnemonic" type="int" value="116"/>
+            <Property name="mnemonic" type="int" value="98"/>
             <Property name="text" type="java.lang.String" value="Booking"/>
           </Properties>
           <SubComponents>
@@ -84,6 +85,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
+            <Property name="mnemonic" type="int" value="117"/>
             <Property name="text" type="java.lang.String" value="Consumo"/>
           </Properties>
           <SubComponents>
@@ -143,6 +145,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuSair">
           <Properties>
+            <Property name="mnemonic" type="int" value="115"/>
             <Property name="text" type="java.lang.String" value="Sair"/>
           </Properties>
           <AuxValues>
