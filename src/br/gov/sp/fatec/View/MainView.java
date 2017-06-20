@@ -86,12 +86,6 @@ public class MainView extends javax.swing.JFrame {
         }
     });
 
-    mainContainer.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            mainContainerMouseClicked(evt);
-        }
-    });
-
     javax.swing.GroupLayout mainContainerLayout = new javax.swing.GroupLayout(mainContainer);
     mainContainer.setLayout(mainContainerLayout);
     mainContainerLayout.setHorizontalGroup(
@@ -272,11 +266,6 @@ public class MainView extends javax.swing.JFrame {
     private void menuHospedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHospedesActionPerformed
         abreForm(CadastroHospedeView.getInstance());
     }//GEN-LAST:event_menuHospedesActionPerformed
-
-    private void mainContainerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainContainerMouseClicked
-        if (evt.isControlDown())
-            mainContainer.add(TestMenuMouse.getInstance(evt.getPoint()));
-    }//GEN-LAST:event_mainContainerMouseClicked
 
     private void menuLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLocacaoActionPerformed
         abreForm(LocacaoView.getInstance());
