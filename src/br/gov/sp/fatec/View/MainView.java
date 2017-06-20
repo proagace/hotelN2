@@ -12,7 +12,6 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.Window;
 import java.beans.PropertyVetoException;
 import java.io.File;
 import java.util.Timer;
@@ -21,7 +20,6 @@ import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -64,18 +62,21 @@ public class MainView extends javax.swing.JFrame {
         menuCadastro = new javax.swing.JMenu();
         menuProdutos = new javax.swing.JMenuItem();
         menuHospedes = new javax.swing.JMenuItem();
+        menuConsulta = new javax.swing.JMenu();
+        Hospede = new javax.swing.JMenuItem();
         menuTeste = new javax.swing.JMenu();
-        test1 = new javax.swing.JMenuItem();
         menuLocacao = new javax.swing.JMenuItem();
         menuReserva = new javax.swing.JMenuItem();
-        Estadia = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        test1 = new javax.swing.JMenuItem();
         menuServico = new javax.swing.JMenuItem();
         menuDiarias = new javax.swing.JMenu();
         pagamento = new javax.swing.JMenuItem();
-        menuConsulta = new javax.swing.JMenu();
-        Hospede = new javax.swing.JMenuItem();
+        Estadia = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
         Logout = new javax.swing.JMenuItem();
+        menuSair1 = new javax.swing.JMenu();
+        Logout1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("VendraHotel");
@@ -127,17 +128,21 @@ public class MainView extends javax.swing.JFrame {
 
     jMenuBar1.add(menuCadastro);
 
-    menuTeste.setMnemonic('t');
-    menuTeste.setText("Teste");
+    menuConsulta.setText("Consulta");
 
-    test1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-    test1.setText("TesteProdutos");
-    test1.addActionListener(new java.awt.event.ActionListener() {
+    Hospede.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+    Hospede.setText("Hóspedes");
+    Hospede.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            test1ActionPerformed(evt);
+            HospedeActionPerformed(evt);
         }
     });
-    menuTeste.add(test1);
+    menuConsulta.add(Hospede);
+
+    jMenuBar1.add(menuConsulta);
+
+    menuTeste.setMnemonic('t');
+    menuTeste.setText("Booking");
 
     menuLocacao.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
     menuLocacao.setText("Locação");
@@ -157,28 +162,34 @@ public class MainView extends javax.swing.JFrame {
     });
     menuTeste.add(menuReserva);
 
-    Estadia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
-    Estadia.setText("Encerrar Estadia");
-    Estadia.addActionListener(new java.awt.event.ActionListener() {
+    jMenuBar1.add(menuTeste);
+
+    jMenu1.setText("Consumo");
+
+    test1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+    test1.setText("Produto");
+    test1.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            EstadiaActionPerformed(evt);
+            test1ActionPerformed(evt);
         }
     });
-    menuTeste.add(Estadia);
+    jMenu1.add(test1);
 
+    menuServico.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
     menuServico.setText("Serviço");
     menuServico.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             menuServicoActionPerformed(evt);
         }
     });
-    menuTeste.add(menuServico);
+    jMenu1.add(menuServico);
 
-    jMenuBar1.add(menuTeste);
+    jMenuBar1.add(jMenu1);
 
     menuDiarias.setMnemonic('d');
-    menuDiarias.setText("Diárias");
+    menuDiarias.setText("Estadia");
 
+    pagamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
     pagamento.setText("Pagamento");
     pagamento.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,22 +198,20 @@ public class MainView extends javax.swing.JFrame {
     });
     menuDiarias.add(pagamento);
 
-    jMenuBar1.add(menuDiarias);
-
-    menuConsulta.setText("Consulta");
-
-    Hospede.setText("Hóspedes");
-    Hospede.addActionListener(new java.awt.event.ActionListener() {
+    Estadia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+    Estadia.setText("Encerramento");
+    Estadia.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            HospedeActionPerformed(evt);
+            EstadiaActionPerformed(evt);
         }
     });
-    menuConsulta.add(Hospede);
+    menuDiarias.add(Estadia);
 
-    jMenuBar1.add(menuConsulta);
+    jMenuBar1.add(menuDiarias);
 
     menuSair.setText("Sair");
 
+    Logout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
     Logout.setText("Logout");
     Logout.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,6 +223,21 @@ public class MainView extends javax.swing.JFrame {
     jMenuBar1.add(Box.createHorizontalGlue());
 
     jMenuBar1.add(menuSair);
+
+    menuSair1.setText("Sair");
+
+    Logout1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+    Logout1.setText("Logout");
+    Logout1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            LogoutActionPerformed(evt);
+        }
+    });
+    menuSair1.add(Logout1);
+
+    jMenuBar1.add(Box.createHorizontalGlue());
+
+    jMenuBar1.add(menuSair1);
 
     setJMenuBar(jMenuBar1);
 
@@ -289,6 +313,10 @@ public class MainView extends javax.swing.JFrame {
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
         toggleMenus();
+        for (JInternalFrame allFrame : mainContainer.getAllFrames()) {
+           allFrame.dispose();
+            
+        }
         abreForm(new LoginView(this));
     }//GEN-LAST:event_LogoutActionPerformed
 
@@ -369,6 +397,8 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem Estadia;
     private javax.swing.JMenuItem Hospede;
     private javax.swing.JMenuItem Logout;
+    private javax.swing.JMenuItem Logout1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private static javax.swing.JDesktopPane mainContainer;
     private javax.swing.JMenu menuCadastro;
@@ -379,6 +409,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuProdutos;
     private javax.swing.JMenuItem menuReserva;
     private javax.swing.JMenu menuSair;
+    private javax.swing.JMenu menuSair1;
     private javax.swing.JMenuItem menuServico;
     private javax.swing.JMenu menuTeste;
     private javax.swing.JMenuItem pagamento;
